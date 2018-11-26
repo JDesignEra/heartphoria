@@ -19,7 +19,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}">
 </head>
-<body>
+{% if bodyBG is defined and bodyBG|length %}
+    <body style="background-image: url({{ url_for('static', filename='images/background/') }}{{ bodyBG }});">
+{% else %}
+    <body>
+{% endif %}
     <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
         <div class="container-fluid mx-auto">
             <a class="navbar-brand py-0" href="./">
