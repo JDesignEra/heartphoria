@@ -24,7 +24,7 @@
 {% else %}
     <body>
 {% endif %}
-    <nav class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm">
         <div class="container-fluid mx-auto">
             <a class="navbar-brand py-0" href="./">
                 <div class="brand-logo"></div>
@@ -67,7 +67,16 @@
             </div>
         </div>
     </nav>
-    {% block content %}{% endblock %}
+
+    {% if mainType == 'vCenter' %}
+        <main class="d-flex flex-column justify-content-center px-3 my-4 mx-auto">
+    {% else %}
+        <main class="container-fluid my-4 mx-auto">
+    {% endif %}
+
+        {% block content %}{% endblock %}
+
+    </main>
 
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>

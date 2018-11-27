@@ -1,7 +1,13 @@
 body {
     background-size: cover;
-    background-position: center;
     background-repeat: no-repeat;
+}
+
+main {
+    flex: auto;
+    min-height: calc(100vh - 40px);
+    padding-top: 82px !important;
+    max-width: 2560px;
 }
 
 /* Navbar */
