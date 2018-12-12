@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <title>Heartphoria{{ ' &middot; '|safe ~ title if title }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/fontawesome.min.css') }}" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/animation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/global.css') }}" />
+    {% block styles %}{% endblock %}
+</head>
+
+{% if bodyImg %}
+    <body style="background-image: url({{ url_for('static', filename='images/background/%s' % bodyImg) }});">
+{% else %}
+    <body>
+{% endif %}
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top shadow-sm">
+        <a class="navbar-brand py-0 my-auto" href="{{ url_for('general.index') }}">
+            <div class="brand-logo"></div>
+        </a>
+        <button class="navbar-toggler" data-toggle="collapse" data-target="#navbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="navbar-collapse collapse justify-content-stretch" id="navbar">
+            <hr class="d-block d-md-none d-lg-none d-md-none" />
+
+            <ul class="navbar-nav">
+                <li class="nav-item{{ ' active' if request.endpoint == 'general.index' }}">
+                    <a class="nav-link" href="{{ url_for('general.index') }}">Home</a>
+                </li>
+
+                {% if g.user %}
+                    <li class="nav-item{{ ' active' if request.endpoint == 'reminder.index' }}">
+                        <a class="nav-link" href="{{ url_for('reminder.index') }}">Medication Reminder</a>
+                    </li>
+                    <li class="nav-item{{ ' active' if request.endpoint == 'appointment.index' }}">
+                        <a class="nav-link" href="{{ url_for('appointment.index') }}">Medical Appointment</a>
+                    </li>
+                    <li class="nav-item{{ ' active' if request.endpoint == 'history.index' }}">
+                        <a class="nav-link" href="{{ url_for('history.index') }}">Medical History</a>
+                    </li>
+                {% endif %}
+            </ul>
+
+            <!-- Nav State (Login/Guest) -->
+            {% if g.user %}
+                {% include 'nav_state/user_nav.html' %}
+            {% else %}
+                {% include 'nav_state/guest_nav.html' %}
+            {% endif %}
+        </div>
+    </nav>
+
+    {% if mainType == 'home' %}
+        <main class="home container-fluid mt-0 mb-4 mx-auto fadeIn">
+    {% elif mainType == 'vCenter' %}
+        <main class="d-flex flex-column justify-content-center px-3 my-4 mx-auto fadeIn">
+    {% else %}
+        <main class="container-fluid my-4 mx-auto fadeIn">
+    {% endif %}
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-dark shadow-lg">
+        <div class="container-fluid py-3">
+            <div class="row">
+                <div class="col-12 col-md-6">
+                    <a href="{{ url_for('general.index') }}">
+                        <img class="brand-logo" src="{{ url_for('static', filename='images/logo/heartphoria_colored.png') }}" />
+                    </a>
+                    <p class="small text-white mb-0">
+                        Copyright &copy; {{ year }} Heartphoria.
+                    </p>
+                </div>
+                <div class="col-12 col-md-6 text-md-right">
+                    <hr class="d-block d-md-none d-lg-none d-xl-none" />
+
+                    <h5 class="text-white">
+                        Connect With Us
+                    </h5>
+                    <a class="fbLink" href="https://facebook.com">
+                        <i class="fab fa-facebook-f fa-lg"></i>
+                    </a>
+                    <a class="twLink ml-3" href="https://twitter.com">
+                        <i class="fab fa-twitter fa-lg"></i>
+                    </a>
+                    <a class="inLink ml-3" href="https://instagram.com">
+                        <i class="fab fa-instagram fa-lg"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    {% block scripts %}{% endblock %}
+</body>
+</html>

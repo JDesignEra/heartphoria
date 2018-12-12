@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <section id="ProfileSection">
+        <div class="row mb-3">
+            <div class="col-12 text-right">
+                <a class="btn btn-outline-primary" href="{{ url_for('.edit') }}">Edit Profile</a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="card shadow-lg">
+                    <div class="card-body text-center">
+                        <img class="img-fluid shadow dp" src="{{ url_for('static', filename='images/dp/default.png') }}">
+
+                        <h3 class="text-primary mt-4">{{ g.user['name'] }}</h3>
+
+                        <hr />
+                        <h6>Gender</h6>
+                        <h4 class="text-primary">{{ g.user['gender'] }}</h4>
+
+                        <hr />
+                        <h6>Date Of Birth</h6>
+                        <h4 class="text-primary">{{ g.user['dob'].strftime('%d/%m/%Y') if g.user['dob'] else g.user['dob'] }}</h4>
+
+                        <hr />
+                        <h6>Height</h6>
+                        <h4 class="text-primary">
+                            {{ g.user['height'] }} cm
+                        </h4>
+
+                        <hr />
+                        <h6>Weight</h6>
+                        <h4 class="text-primary">{{ g.user['weight'] }} kg</h4>
+                    </div>
+                </div>
+
+                <div class="card shadow-lg mt-5">
+                    <div class="card-body text-center">
+                        <h4 class="pb-3 text-primary">BMI</h4>
+
+                        <h4 class="text-info">{{ bmi[0] }}</h4>
+                        <h6 class="text-muted">You are at <span class="text-info text-uppercase font-weight-bold">{{ bmi[1] }}</span></h6>
+                    </div>
+                </div>
+
+                <div class="card shadow-lg mt-5">
+                    <div class="card-body text-center">
+                        <h4 class="pb-4 text-primary">Account Information</h4>
+
+                        <h6>Email</h6>
+                        <p>{{ g.user['email'] }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-md-8 mt-4 mt-md-0">
+                <div class="card text-center shadow-lg">
+                    <div class="card-header">
+                        <ul class="nav nav-pills nav-fill card-header-pills">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="#MedReminder" data-toggle="pill">Medication Reminder</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#MedAppointment" data-toggle="pill">Medical Appointment</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="#MedHistory" data-toggle="pill">Medical History</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="MedReminder" role="tabpanel">
+                                {% if reminders %}
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Time</th>
+                                                <th scope="col">Medication</th>
+                                                <th scope="col">Quantity</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for reminder in reminders %}
+                                                <tr>
+                                                    <td>{{ reminder['time'].strftime('%I:%m %p') }}</td>
+                                                    <td>{{ reminder['medication'] }}</td>
+                                                    <td>{{ reminder['quantity'] }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <a class="btn btn-info btn-block" href="{{ url_for('reminder.index') }}">View More</a>
+                                {% else %}
+                                    <h6>You do not have any Medication Reminder yet.</h6>
+                                {% endif %}
+                            </div>
+
+                            <div class="tab-pane" id="MedAppointment" role="tabpanel">
+                                {% if appointments %}
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Date</th>
+                                                <th scope="col">Time</th>
+                                                <th scope="col">Hospital / Clinic</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {% for appointment in appointments %}
+                                                <tr>
+                                                    <td>{{ appointment['date_time'].strftime('%d/%m/%Y') }}</td>
+                                                    <td>{{ appointment['date_time'].strftime('%I:%M %p') }}</td>
+                                                    <td>{{ appointment['location'] }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                    <a class="btn btn-info btn-block" href="{{ url_for('appointment.index') }}">View More</a>
+                                {% else %}
+                                    <h6>You do not have any Medical Appointment yet.</h6>
+                                {% endif %}
+                            </div>
+
+                            <div class="tab-pane" id="MedHistory" role="tabpanel">
+                            {% if histories %}
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Time</th>
+                                            <th scope="col">Medication</th>
+                                            <th scope="col">Quantity</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for history in histories %}
+                                            <tr>
+                                                <td>{{ history['date'].strftime('%d/%m/%Y') }}</td>
+                                                <td>{{ history['description'] }}</td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                </table>
+                                <a class="btn btn-info btn-block" href="{{ url_for('history.index') }}">View More</a>
+                            {% else %}
+                                <h6>You do not have any Medical History yet.</h6>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

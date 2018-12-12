@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% set mainType = 'vCenter' %}
+{% set bodyImg = 'signup_bg.png' %}
+
+{% block content %}
+    <section id="SignupSection">
+        <div class="col-12 col-md-6 mx-auto">
+            <div class="card text-center shadow acrylic">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Sign up</h5>
+
+                    <p class="card-text">
+                        Sign up an account with Heartphoria today and
+                        gain access to additional members only features.
+                    </p>
+
+                    <form class="text-left" method="post" novalidate>
+                        <div class="form-label-group">
+                            <input id="name" class="form-control{{ ' is-invalid' if errors['name'] }}" type="text" placeholder="Name" name="name"{% if name %} value="{{ name }}"{% endif %} autofocus />
+                            <label for="name">Name</label>
+                            {% if errors['name'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['name'] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-label-group">
+                            <input id="email" class="form-control{{ ' is-invalid' if errors['email'] }}" type="email" placeholder="Email" name="email"{% if email %} value="{{ email }}"{% endif %} />
+                            <label for="email">Email</label>
+                            {% if errors['email'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['email'] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-label-group">
+                            <input id="password" class="form-control{{ ' is-invalid' if errors['password'] }}" type="password" placeholder="Password" name="password" />
+                            <label for="password">Password</label>
+                            {% if errors['password'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['password'] }}</div>
+                            {% endif %}
+                        </div>
+                        <div class="form-label-group">
+                            <input id="confirm" class="form-control{{ ' is-invalid' if errors['confirm'] }}" type="password" placeholder="Confirm password" name="confirm" />
+                            <label for="confirm">Confirm password</label>
+                            {% if errors['confirm'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['confirm'] }}</div>
+                            {% endif %}
+                            <small class="form-text">
+                                More then 7 characters and contains 1 numeric, upper and lowercase.
+                            </small>
+                        </div>
+
+                        <button type="submit" class="btn btn-success btn-block">
+                            <span class="signup-text fadeIn">Sign up</span>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

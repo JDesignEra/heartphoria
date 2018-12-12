@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+{% set mainType = 'home' %}
+
+{% block content %}
+    <section id="HomeSection">
+        <div id="carousel" class="carousel slide shadow-lg mb-4" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1"></li>
+                <li data-target="#carousel" data-slide-to="2"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url('{{ url_for('static', filename='images/background/signup_bg_slider.png') }}')">
+                    <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
+                        <h2 class="mb-2">Welcome to EcoSplash</h2>
+                        <h6 class="mt-2">Start being environmental friendly and save our earth with us today.</h6>
+                        {% if g.user['id'] %}
+                            <a class="btn btn-success w-50 mx-auto mt-5" href="{{ url_for('auth.signup') }}">Sign Up</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!--
+                <div class="carousel-item" style="background-image: url('./assets/img/background/user_signup_slide.jpg')">
+                    <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
+                        <h2 class="mb-2">Register as an individual user</h2>
+                        <h6 class="mt-2">Register an account with EcoSplash and start being environmental friendly with extra incentives today.</h6>
+                        <a class="btn btn-success w-25 mx-auto mt-4" href="./signup">Sign Up</a>
+                    </div>
+                </div>
+
+                <div class="carousel-item" style="background-image: url('./assets/img/background/organization_signup_slide.jpg')">
+                    <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
+                        <h2 class="mb-2">Register as an organization</h2>
+                        <h6 class="mt-2">Register an account with EcoSplash and promote your organization, with added benefits today.</h6>
+                        <a class="btn btn-success w-25 mx-auto mt-4" href="./signup">Sign Up</a>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12 col-md-8">
+                {% if g.user %}
+                    {% include 'index_state/user_index.html' %}
+                {% else %}
+                    {% include 'index_state/guest_index.html' %}
+                {% endif %}
+            </div>
+
+            <div class="col-12 col-md-4">
+                <!--
+                <div id="Weather" class="card shadow mt-4">
+                    <div class="card-body">
+                        <h4 class="pb-3 text-center text-primary">Weather</h4>
+                        <p>
+                            Placeholder
+                        </p>
+                    </div>
+                </div>
+                -->
+
+                <div id="medSchedule" class="card shadow mt-4">
+                    <div class="card-body">
+                        <h4 class="pb-3 text-center text-primary">BMI Calculator</h4>
+
+                        <form id="bmi" novalidate>
+                            <div class="form-label-group">
+                                <input id="weight" class="form-control" type="number" placeholder="Weight (kg)" name="weight" required>
+                                <label for="weight">Weight (kg)</label>
+                                <div class="feedback invalid-feedback fadeIn"></div>
+                            </div>
+
+                             <div class="form-label-group">
+                                <input id="height" class="form-control" type="number" placeholder="Height (m)" name="height" required>
+                                <label for="height">Height (cm)</label>
+                                <div class="feedback invalid-feedback fadeIn"></div>
+                            </div>
+
+                            {% if bmi and bmi_text %}
+                                <div class="fadeIn">
+                                    <h2 class="text-info text-center">{{ bmi }}</h2>
+                                    <h6 class="text-center text-muted">you are at <span class="text-info text-uppercase font-weight-bold">{{ bmi_text }}</span></h6>
+                                </div>
+                            {% endif %}
+
+                            <button type="submit" class="btn btn-primary btn-block">Calculate</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

@@ -1,0 +1,59 @@
+<div id="medReminder" class="card shadow mt-4">
+    <div class="card-body">
+        <h4 class="pb-3 text-primary">Medication Reminder</h4>
+
+        {% if reminders %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Time</th>
+                        <th scope="col">Medication</th>
+                        <th scope="col">Quantity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reminder in reminders %}
+                        <tr>
+                            <td>{{ reminder['time'].strftime('%I:%m %p') }}</td>
+                            <td>{{ reminder['medication'] }}</td>
+                            <td>{{ reminder['quantity'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-info btn-block" href="{{ url_for('reminder.index') }}">View More</a>
+        {% else %}
+            <h6>You do not have any Medication Reminder Yet.</h6>
+        {% endif %}
+    </div>
+</div>
+
+<div id="medSchedule" class="card shadow mt-4">
+    <div class="card-body">
+        <h4 class="pb-3 text-primary">Upcoming Medical Appointment</h4>
+
+        {% if appointments %}
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Date</th>
+                        <th scope="col">Time</th>
+                        <th scope="col">Hospital / Clinic</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment['date_time'].strftime('%d/%m/%Y') }}</td>
+                            <td>{{ appointment['date_time'].strftime('%I:%M %p') }}</td>
+                            <td>{{ appointment['location'] }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <a class="btn btn-info btn-block" href="{{ url_for('appointment.index') }}">View More</a>
+        {% else %}
+            <h6>You do not have any Medical Appointment Yet.</h6>
+        {% endif %}
+    </div>
+</div>
