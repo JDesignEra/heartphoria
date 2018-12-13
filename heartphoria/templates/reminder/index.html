@@ -4,7 +4,60 @@
     <section id="ReminderSection">
         <div class="card shadow-lg">
             <div class="card-body">
+                <h4 class="pb-3 text-center text-primary">Medication Reminder</h4>
+                <!--<button id="AddAppointment" class="btn btn-outline-success btn-block">New Medical Appointment</button>-->
 
+
+                <form class="text-left" method="post" novalidate>
+                    <div class="form-label-group text-left">
+                        <input id="medication" class="form-control{{ ' is-invalid' if errors['medication'] }}" type="text" placeholder="Medication" name="medication"{% if medication %} value="{{ medication }}"{% endif %} />
+                        <label for="medication">Medication</label>
+                        {% if errors['medication'] %}
+                            <div class="feedback invalid-tooltip fadeIn">{{ errors['medication'] }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-label-group text-left">
+                        <input id="time" class="form-control{{ ' is-invalid' if errors['time'] }}" type="time" placeholder="Time" name="time"{% if time %} value="{{ time }}"{% endif %} />
+                        <label for="time">Time</label>
+                        {% if errors['time'] %}
+                            <div class="feedback invalid-tooltip fadeIn">{{ errors['time'] }}</div>
+                        {% endif %}
+                    </div>
+
+                    <div class="form-label-group text-left">
+                        <input id="quantity" class="form-control{{ ' is-invalid' if errors['quantity'] }}" type="text" placeholder="Quantity" name="quantity"{% if quantity %} value="{{ quantity }}"{% endif %} />
+                        <label for="quantity">Quantity</label>
+                        {% if errors['quantity'] %}
+                            <div class="feedback invalid-tooltip fadeIn">{{ errors['quantity'] }}</div>
+                        {% endif %}
+                    </div>
+
+                    <button class="btn btn-success btn-block mb-4" type="submit">New Medication Reminder</button>
+                </form>
+
+                {% if reminders %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Medication</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for reminder in reminders %}
+                                <tr>
+                                    <td>{{ reminder['time'].strftime('%I:%M %p') }}</td>
+                                    <td>{{ reminder['medication'] }}</td>
+                                    <td>{{ reminder['quantity'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                     <h6 class="text-center">You do not have any Medication Reminder Yet.</h6>
+                {% endif %}
             </div>
         </div>
     </section>
