@@ -4,7 +4,33 @@
     <section id="ReminderSection">
         <div class="card shadow-lg">
             <div class="card-body">
+                <h4 class="pb-3 text-center text-primary">Medical History</h4>
+                <!--<button id="AddAppointment" class="btn btn-outline-success btn-block">New Medical Appointment</button>-->
 
+
+
+
+                {% if reminders %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Time</th>
+                                <th scope="col">Medication</th>
+                                <th scope="col">Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for history in histories %}
+                                <tr>
+                                    <td>{{ reminder['date'].strftime('%d/%m/%Y') }}</td>
+                                    <td>{{ reminder['description'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                     <h6 class="text-center">You do not have any Medical History Yet.</h6>
+                {% endif %}
             </div>
         </div>
     </section>
