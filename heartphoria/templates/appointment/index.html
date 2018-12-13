@@ -4,7 +4,34 @@
     <section id="AppoinmentSection">
         <div class="card shadow-lg">
             <div class="card-body">
+                <h4 class="pb-3 text-center text-primary">Medical Appointment</h4>
+                <!--<button id="AddAppointment" class="btn btn-outline-success btn-block">New Medical Appointment</button>-->
 
+
+
+
+                {% if appointments %}
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Time</th>
+                                <th scope="col">Hospital / Clinic</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                                <tr>
+                                    <td>{{ appointment['date_time'].strftime('%d/%m/%Y') }}</td>
+                                    <td>{{ appointment['date_time'].strftime('%I:%M %p') }}</td>
+                                    <td>{{ appointment['location'] }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                {% else %}
+                    <h6 class="text-center">You do not have any Medical Appointment Yet.</h6>
+                {% endif %}
             </div>
         </div>
     </section>
