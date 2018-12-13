@@ -80,7 +80,7 @@
                             <div class="form-label-group">
                                 <input id="password" class="form-control{{ ' is-invalid' if errors['all'] or errors['password'] }}" type="password" placeholder="Password" name="password" />
                                 <label for="password">Password</label>
-                                {% if errors['all'] or errors['email'] %}
+                                {% if errors['all'] or errors['password'] %}
                                     <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] if errors['all'] else errors['email'] }}</div>
                                 {% endif %}
                             </div>
