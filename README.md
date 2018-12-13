@@ -1,4 +1,4 @@
-<img src="static/images/logo/heartphoria_colored.png" />
+<img src="heartphoria/static/images/logo/heartphoria_colored.png" />
 
 Frameworks / Libraries / APIs / Languages
 ------
