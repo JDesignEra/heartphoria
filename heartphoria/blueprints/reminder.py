@@ -14,13 +14,13 @@ def index():
     medication = None
     quantity = None
     errors = {}
+    
+    db = get_db()
 
     if request.method == 'POST':
         time = request.form.get('time')
         medication = request.form.get('medication')
         quantity = request.form.get('quantity')
-
-        db = get_db()
 
         if not time:
             errors['time'] = 'Time is required.'
@@ -39,6 +39,6 @@ def index():
 
             return redirect(url_for('.index'))
 
-    reminders = get_db().execute('SELECT * FROM reminder WHERE user_id = ? ORDER BY time', [g.user['id']]).fetchall()
+    reminders = db.execute('SELECT * FROM reminder WHERE user_id = ? ORDER BY time', [g.user['id']]).fetchall()
 
     return render_template('reminder/index.html', time=time, medication=medication, quantity=quantity, errors=errors, reminders=reminders)

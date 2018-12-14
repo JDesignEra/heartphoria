@@ -14,13 +14,13 @@ def index():
     time = None
     location = None
     errors = {}
+    
+    db = get_db()
 
     if request.method == 'POST':
         date = request.form.get('date')
         time = request.form.get('time')
         location = request.form.get('location')
-
-        db = get_db()
 
         if not (date and time):
             if not date:
@@ -40,6 +40,6 @@ def index():
 
             return redirect(url_for('.index'))
 
-    appointments = get_db().execute('SELECT * FROM appointment WHERE user_id = ? ORDER BY date_time DESC', [g.user['id']]).fetchall()
+    appointments = db.execute('SELECT * FROM appointment WHERE user_id = ? ORDER BY date_time DESC', [g.user['id']]).fetchall()
 
     return render_template('appointment/index.html', date=date, time=time, location=location, errors=errors, appointments=appointments)

@@ -21,7 +21,7 @@
 
                         <hr />
                         <h6>Date Of Birth</h6>
-                        <h4 class="text-primary">{{ g.user['dob'].strftime('%d/%m/%Y') if g.user['dob'] else g.user['dob'] }}</h4>
+                        <h4 class="text-primary">{{ g.user['dob'].strftime('%d/%m/%Y') if g.user['dob'] }}</h4>
 
                         <hr />
                         <h6>Height</h6>
@@ -94,7 +94,7 @@
                                     </table>
                                     <a class="btn btn-info btn-block" href="{{ url_for('reminder.index') }}">View More</a>
                                 {% else %}
-                                    <h6>You do not have any Medication Reminder yet.</h6>
+                                    <h6>You do not have any Medication Reminder Yet.</h6>
                                 {% endif %}
                             </div>
 
@@ -120,7 +120,7 @@
                                     </table>
                                     <a class="btn btn-info btn-block" href="{{ url_for('appointment.index') }}">View More</a>
                                 {% else %}
-                                    <h6>You do not have any Medical Appointment yet.</h6>
+                                    <h6>You do not have any Medical Appointment Yet.</h6>
                                 {% endif %}
                             </div>
 
@@ -129,9 +129,8 @@
                                 <table class="table table-striped">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Time</th>
-                                            <th scope="col">Medication</th>
-                                            <th scope="col">Quantity</th>
+                                            <th scope="col">Date</th>
+                                            <th scope="col">Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -145,7 +144,7 @@
                                 </table>
                                 <a class="btn btn-info btn-block" href="{{ url_for('history.index') }}">View More</a>
                             {% else %}
-                                <h6>You do not have any Medical History yet.</h6>
+                                <h6>You do not have any Medical History Yet.</h6>
                             {% endif %}
                         </div>
                     </div>

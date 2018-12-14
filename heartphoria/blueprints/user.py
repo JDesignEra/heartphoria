@@ -15,7 +15,6 @@ def index(user_id):
     if g.user['id'] != user_id and g.user['role'] != 'admin':
         return redirect(url_for('general.index'))
 
-    ''' TEMP FIX
     bmi = [0 if g.user['weight'] == 0 or g.user['height'] == 0 else round(g.user['weight'] / (g.user['height'] / 100 * g.user['height'] / 100), 1)]
 
     if bmi[0] >= 27.5:
@@ -26,12 +25,10 @@ def index(user_id):
         bmi.insert(1, 'LOW RISK')
     else:
         bmi.insert(1, 'Risk Of Nutritional Deficiency')
-    '''
-    bmi = 0
 
     db = get_db()
         
-    reminders = db.execute('SELECT * FROM reminder WHERE user_id = ? ORDER BY time', [user_id]).fetchall()
+    reminders = db.execute('SELECT * FROM reminder WHERE user_id = ? ORDER BY time LIMIT 10', [user_id]).fetchall()
     appointments = db.execute('SELECT * FROM appointment WHERE user_id = ? ORDER BY date_time DESC LIMIT 10', [user_id]).fetchall()
     histories = db.execute('SELECT * FROM history WHERE user_id = ? ORDER BY date DESC LIMIT 10', [user_id]).fetchall()
 
@@ -84,9 +81,7 @@ def edit():
         if email:
             if not re.match(r"[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
                 errors['email'] = 'Email address is invalid.'
-            elif g.user['email'] == email:
-                errors['email'] = None
-            elif db.execute('SELECT id FROM user WHERE email = ?', [email]).fetchone() is not None:
+            elif g.user['email'] != email and db.execute('SELECT id FROM user WHERE email = ?', [email]).fetchone() is not None:
                 errors['email'] = email + ' already exists.'
             else:
                 data['email'] = email.lower()

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section id="ReminderSection">
+    <section id="HistorySection">
         <div class="card shadow-lg">
             <div class="card-body">
                 <h4 class="pb-3 text-center text-primary">Medical History</h4>
@@ -10,7 +10,7 @@
 
                 <form class="text-left" method="post" novalidate>
                     <div class="form-label-group text-left">
-                        <input id="date" class="form-control{{ ' is-invalid' if errors['date'] }}" type="text" placeholder="Date" name="date"{% if date %} value="{{ date }}"{% endif %} />
+                        <input id="date" class="form-control{{ ' is-invalid' if errors['date'] }}" type="date" placeholder="Date" name="date"{% if date %} value="{{ date }}"{% endif %} />
                         <label for="date">Date</label>
                         {% if errors['date'] %}
                             <div class="feedback invalid-tooltip fadeIn">{{ errors['date'] }}</div>
@@ -25,23 +25,22 @@
                         {% endif %}
                     </div>
 
-                    <button class="btn btn-success btn-block mb-4" type="submit">New Medication Reminder</button>
+                    <button class="btn btn-success btn-block mb-4" type="submit">New Medication History</button>
                 </form>
 
-                {% if reminders %}
+                {% if histories %}
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th scope="col">Time</th>
-                                <th scope="col">Medication</th>
-                                <th scope="col">Quantity</th>
+                                <th scope="col">Date</th>
+                                <th scope="col">Description</th>
                             </tr>
                         </thead>
                         <tbody>
                             {% for history in histories %}
                                 <tr>
-                                    <td>{{ reminder['date'].strftime('%d/%m/%Y') }}</td>
-                                    <td>{{ reminder['description'] }}</td>
+                                    <td>{{ history['date'].strftime('%d/%m/%Y') }}</td>
+                                    <td>{{ history['description'] }}</td>
                                 </tr>
                             {% endfor %}
                         </tbody>

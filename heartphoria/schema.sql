@@ -33,6 +33,6 @@ CREATE TABLE IF NOT EXISTS appointment (
 CREATE TABLE IF NOT EXISTS history (
     id          INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id     INTEGER REFERENCES user ON DELETE CASCADE,
-    date        date NOT NULL,
+    date        DATE NOT NULL,
     description TEXT NOT NULL
 );
