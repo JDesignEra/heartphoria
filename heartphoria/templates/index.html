@@ -66,23 +66,21 @@
                     <div class="card-body">
                         <h4 class="pb-3 text-center text-primary">BMI Calculator</h4>
 
-                        <form id="bmi" novalidate>
+                        <form method="post" novalidate>
                             <div class="form-label-group">
-                                <input id="weight" class="form-control" type="number" placeholder="Weight (kg)" name="weight" required>
+                                <input id="weight" class="form-control" type="number" placeholder="Weight (kg)" name="weight" {{ 'value=' + bmi['weight']|string  if bmi['weight'] }} required>
                                 <label for="weight">Weight (kg)</label>
-                                <div class="feedback invalid-feedback fadeIn"></div>
                             </div>
 
                              <div class="form-label-group">
-                                <input id="height" class="form-control" type="number" placeholder="Height (m)" name="height" required>
+                                <input id="height" class="form-control" type="number" placeholder="Height (m)" name="height" {{ 'value=' + bmi['height']|string  if bmi['height'] }} required>
                                 <label for="height">Height (cm)</label>
-                                <div class="feedback invalid-feedback fadeIn"></div>
                             </div>
 
-                            {% if bmi and bmi_text %}
+                            {% if bmi['index'] and bmi['text'] %}
                                 <div class="fadeIn">
-                                    <h2 class="text-info text-center">{{ bmi }}</h2>
-                                    <h6 class="text-center text-muted">you are at <span class="text-info text-uppercase font-weight-bold">{{ bmi_text }}</span></h6>
+                                    <h2 class="text-info text-center">{{ bmi['index'] }}</h2>
+                                    <h6 class="text-center text-muted">you are at <span class="text-info text-uppercase font-weight-bold">{{ bmi['text'] }}</span></h6>
                                 </div>
                             {% endif %}
 
