@@ -15,16 +15,19 @@ def index(user_id):
     if g.user['id'] != user_id and g.user['role'] != 'admin':
         return redirect(url_for('general.index'))
 
-    bmi = [0 if g.user['weight'] == 0 or g.user['height'] == 0 else round(g.user['weight'] / (g.user['height'] / 100 * g.user['height'] / 100), 1)]
+    bmi = {
+        'index': 0 if g.user['weight'] == 0 or g.user['height'] == 0 else round(g.user['weight'] / (g.user['height'] / 100 * g.user['height'] / 100))
+    }
+    # bmi = [0 if g.user['weight'] == 0 or g.user['height'] == 0 else round(g.user['weight'] / (g.user['height'] / 100 * g.user['height'] / 100), 1)]
 
-    if bmi[0] >= 27.5:
-        bmi.insert(1, 'HIGH RISK')
-    elif bmi[0] >= 23:
-        bmi.insert(1, 'MODERATE RISK')
-    elif bmi[0] >= 18.5:
-        bmi.insert(1, 'LOW RISK')
+    if bmi['index'] >= 27.5:
+        bmi['text'] = 'HIGH RISK'
+    elif bmi['index'] >= 23:
+        bmi['text'] = 'MODERATE RISK'
+    elif bmi['index'] >= 18.5:
+        bmi['text'] = 'LOW RISK'
     else:
-        bmi.insert(1, 'Risk Of Nutritional Deficiency')
+        bmi['text'] = 'Risk Of Nutritional Deficiency'
 
     db = get_db()
         

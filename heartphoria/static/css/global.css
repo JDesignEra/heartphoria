@@ -56,7 +56,8 @@ main {
     max-width: 2560px;
 }
 
-.navbar .navbar-brand .brand-logo {
+.navbar .navbar-brand .brand-logo,
+footer .brand-logo {
     width: 80px;
     height: 40px;
     background-image: url("../images/logo/heartphoria_colored.png");
@@ -97,10 +98,6 @@ main {
 }
 
 /* Forms */
-/*.feedback {*/
-    /*font-weight: 500;*/
-/*}*/
-
 .form-label-group .invalid-tooltip {
     right: 0;
     top: -1px;

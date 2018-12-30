@@ -16,33 +16,46 @@
                         <h3 class="text-primary mt-4">{{ g.user['name'] }}</h3>
 
                         <hr />
-                        <h6>Gender</h6>
-                        <h4 class="text-primary">{{ g.user['gender'] }}</h4>
+                        {% if g.user.gender %}
+                            <h6>Gender</h6>
+                            <h4 class="text-primary">{{ g.user['gender'] }}</h4>
 
-                        <hr />
-                        <h6>Date Of Birth</h6>
-                        <h4 class="text-primary">{{ g.user['dob'].strftime('%d/%m/%Y') if g.user['dob'] }}</h4>
+                            <hr />
+                        {% endif %}
 
-                        <hr />
-                        <h6>Height</h6>
-                        <h4 class="text-primary">
-                            {{ g.user['height'] }} cm
-                        </h4>
+                        {% if g.user.dob %}
+                            <h6>Date Of Birth</h6>
+                            <h4 class="text-primary">{{ g.user['dob'].strftime('%d/%m/%Y') if g.user['dob'] }}</h4>
 
-                        <hr />
-                        <h6>Weight</h6>
-                        <h4 class="text-primary">{{ g.user['weight'] }} kg</h4>
+                            <hr />
+                        {% endif %}
+
+                        {% if g.user.height %}
+                            <h6>Height</h6>
+                            <h4 class="text-primary">
+                                {{ g.user['height'] }} cm
+                            </h4>
+
+                            <hr />
+                        {% endif %}
+
+                        {% if g.user.weight %}
+                            <h6>Weight</h6>
+                            <h4 class="text-primary">{{ g.user['weight'] }} kg</h4>
+                        {% endif %}
                     </div>
                 </div>
 
-                <div class="card shadow-lg mt-5">
-                    <div class="card-body text-center">
-                        <h4 class="pb-3 text-primary">BMI</h4>
+                {% if bmi['index'] > 0 %}
+                    <div class="card shadow-lg mt-5">
+                        <div class="card-body text-center">
+                            <h4 class="pb-3 text-primary">BMI</h4>
 
-                        <h4 class="text-info">{{ bmi[0] }}</h4>
-                        <h6 class="text-muted">You are at <span class="text-info text-uppercase font-weight-bold">{{ bmi[1] }}</span></h6>
+                            <h4 class="text-info">{{ bmi['index'] }}</h4>
+                            <h6 class="text-muted">You are at <span class="text-info text-uppercase font-weight-bold">{{ bmi['text'] }}</span></h6>
+                        </div>
                     </div>
-                </div>
+                {% endif %}
 
                 <div class="card shadow-lg mt-5">
                     <div class="card-body text-center">
