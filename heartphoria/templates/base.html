@@ -56,7 +56,45 @@
     </nav>
 
     {% if mainType == 'home' %}
-        <main class="home container-fluid mt-0 mb-4 mx-auto fadeIn">
+        <div id="carousel" class="carousel slide shadow-lg mb-4" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel" data-slide-to="1"></li>
+                <li data-target="#carousel" data-slide-to="2"></li>
+            </ol>
+
+            <div class="carousel-inner">
+                <div class="carousel-item active" style="background-image: url('{{ url_for('static', filename='images/background/signup_bg_slider.png') }}')">
+                    <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
+                        <h2 class="mb-2">Welcome to EcoSplash</h2>
+                        <h6 class="mt-2">Start being environmental friendly and save our earth with us today.</h6>
+                        {% if g.user['id'] %}
+                            <a class="btn btn-success w-50 mx-auto mt-5" href="{{ url_for('auth.signup') }}">Sign Up</a>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- TODO: Carousel
+                <div class="carousel-item" style="background-image: url('./assets/img/background/user_signup_slide.jpg')">
+                    <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
+                        <h2 class="mb-2">Register as an individual user</h2>
+                        <h6 class="mt-2">Register an account with EcoSplash and start being environmental friendly with extra incentives today.</h6>
+                        <a class="btn btn-success w-25 mx-auto mt-4" href="./signup">Sign Up</a>
+                    </div>
+                </div>
+
+                <div class="carousel-item" style="background-image: url('./assets/img/background/organization_signup_slide.jpg')">
+                    <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
+                        <h2 class="mb-2">Register as an organization</h2>
+                        <h6 class="mt-2">Register an account with EcoSplash and promote your organization, with added benefits today.</h6>
+                        <a class="btn btn-success w-25 mx-auto mt-4" href="./signup">Sign Up</a>
+                    </div>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <main class="home container-fluid pt-0 mt-0 mb-4 mx-auto fadeIn">
     {% elif mainType == 'vCenter' %}
         <main class="d-flex flex-column justify-content-center px-3 my-4 mx-auto fadeIn">
     {% else %}

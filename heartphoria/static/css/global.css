@@ -10,40 +10,6 @@ main {
     max-width: 2560px;
 }
 
-/* Profile & Edit Profile */
-#ProfileSection .card-body .dp,
-#EditProfileSection .card-body .dp {
-    border-radius: 8px;
-}
-
-/* Home */
-#HomeSection .card-img-top {
-    max-height: 300px;
-}
-
-/* carousel */
-.carousel {
-    margin: 0 -15px;
-}
-
-.carousel .carousel-item {
-    height: 50vh;
-    padding-top: 82px;
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-}
-
-@media (max-width: 767.98px) {
-    .carousel .carousel-item {
-        height: 70vh;
-        padding-top: 82px;
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }
-}
-
 /* Navbar */
 .navbar {
     -webkit-transition: all 0.35s ease-in-out;
@@ -95,6 +61,40 @@ footer .brand-logo {
 #ProfileDropdown .dropdown-menu #LogoutDropdown.dropdown-item:hover {
     color: #dc3545;
     background-color: #fae3e5;
+}
+
+/* Profile & Edit Profile */
+#ProfileSection .card-body .dp,
+#EditProfileSection .card-body .dp {
+    border-radius: 8px;
+}
+
+/* Home */
+#HomeSection .card-img-top {
+    max-height: 300px;
+}
+
+.carousel .carousel-item {
+    height: 50vh;
+    padding-top: 82px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@media (max-width: 767.98px) {
+    .carousel .carousel-item {
+        height: 70vh;
+        padding-top: 82px;
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+}
+
+/* Buttons */
+.btn.btn-secondary {
+    color: #ffffff;
 }
 
 /* Forms */

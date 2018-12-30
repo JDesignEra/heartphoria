@@ -19,14 +19,15 @@ def index(user_id):
         'index': None if g.user['weight'] == 0 or g.user['height'] == 0 else round(g.user['weight'] / (g.user['height'] / 100 * g.user['height'] / 100))
     }
 
-    if bmi['index'] >= 27.5:
-        bmi['text'] = 'HIGH RISK'
-    elif bmi['index'] >= 23:
-        bmi['text'] = 'MODERATE RISK'
-    elif bmi['index'] >= 18.5:
-        bmi['text'] = 'LOW RISK'
-    else:
-        bmi['text'] = 'Risk Of Nutritional Deficiency'
+    if bmi['index']:
+        if bmi['index'] >= 27.5:
+            bmi['text'] = 'HIGH RISK'
+        elif bmi['index'] >= 23:
+            bmi['text'] = 'MODERATE RISK'
+        elif bmi['index'] >= 18.5:
+            bmi['text'] = 'LOW RISK'
+        else:
+            bmi['text'] = 'Risk Of Nutritional Deficiency'
 
     db = get_db()
         
