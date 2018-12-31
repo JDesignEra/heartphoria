@@ -1,40 +1,41 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section id="AppoinmentSection">
+    <section id="appointmentSection">
         <div class="card shadow-lg">
             <div class="card-body">
                 <h4 class="pb-3 text-center text-primary">Medical Appointment</h4>
-                <!--<button id="AddAppointment" class="btn btn-outline-success btn-block">New Medical Appointment</button>-->
 
+                <button id="appointmentToggle" class="btn btn-outline-primary btn-block mb-4">New Medical Appointment</button>
+                <div id="expandContainer">
+                    <form id="appointmentForm" class="text-left" method="post" novalidate>
+                        <div class="form-label-group text-left">
+                            <input id="location" class="form-control{{ ' is-invalid' if errors['location'] }}" type="text" placeholder="Hospital / Clinic" name="location"{% if location %} value="{{ location }}"{% endif %} />
+                            <label for="location">Hospital / Clinic</label>
+                            {% if errors['location'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['location'] }}</div>
+                            {% endif %}
+                        </div>
 
-                <form class="text-left" method="post" novalidate>
-                    <div class="form-label-group text-left">
-                        <input id="location" class="form-control{{ ' is-invalid' if errors['location'] }}" type="text" placeholder="Hospital / Clinic" name="location"{% if location %} value="{{ location }}"{% endif %} />
-                        <label for="location">Hospital / Clinic</label>
-                        {% if errors['location'] %}
-                            <div class="feedback invalid-tooltip fadeIn">{{ errors['location'] }}</div>
-                        {% endif %}
-                    </div>
+                        <div class="form-label-group text-left">
+                            <input id="date" class="form-control{{ ' is-invalid' if errors['date'] }}" type="date" placeholder="Date" name="date"{% if date %} value="{{ date }}"{% endif %} />
+                            <label for="date">Date</label>
+                            {% if errors['date'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['date'] }}</div>
+                            {% endif %}
+                        </div>
 
-                    <div class="form-label-group text-left">
-                        <input id="date" class="form-control{{ ' is-invalid' if errors['date'] }}" type="date" placeholder="Date" name="date"{% if date %} value="{{ date }}"{% endif %} />
-                        <label for="date">Date</label>
-                        {% if errors['date'] %}
-                            <div class="feedback invalid-tooltip fadeIn">{{ errors['date'] }}</div>
-                        {% endif %}
-                    </div>
+                        <div class="form-label-group text-left">
+                            <input id="date" class="form-control{{ ' is-invalid' if errors['time'] }}" type="time" placeholder="Time" name="time"{% if time %} value="{{ time }}"{% endif %} />
+                            <label for="date">Time</label>
+                            {% if errors['time'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['time'] }}</div>
+                            {% endif %}
+                        </div>
 
-                    <div class="form-label-group text-left">
-                        <input id="date" class="form-control{{ ' is-invalid' if errors['time'] }}" type="time" placeholder="Time" name="time"{% if time %} value="{{ time }}"{% endif %} />
-                        <label for="date">Time</label>
-                        {% if errors['time'] %}
-                            <div class="feedback invalid-tooltip fadeIn">{{ errors['time'] }}</div>
-                        {% endif %}
-                    </div>
-
-                    <button class="btn btn-success btn-block mb-4" type="submit">New Medical Appointment</button>
-                </form>
+                        <button class="btn btn-success btn-block mb-4" type="submit">Add Medical Appointment</button>
+                    </form>
+                </div>
 
                 {% if appointments %}
                     <table class="table table-striped">

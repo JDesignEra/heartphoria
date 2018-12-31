@@ -1,18 +1,29 @@
-$('#bmi').submit(function (e) {
-    e.preventDefault();
-    //clear error message
+var animationEnd = (function(el) {
+        var animations = {
+            "animation": "animationend",
+            "OAnimation": "oAnimationEnd",
+            "MozAnimation": "mozAnimationEnd",
+           "WebkitAnimation": "webkitAnimationEnd"
+        };
 
-    var weight = $('weight').val();
-    var height = $('height').val();
+        for(var t in animations) {
+            if(el.style[t] !== undefined) {
+                return animations[t];
+            }
+        }
+})(document.createElement("fakeElement"));
 
-    if ($.isNumeric(weight) && $.isNumeric(height)) {
-        //bmi formula
+/* reminderSection */
+$(document).on('click', '#reminderSection #reminderToggle', function() {
+    $('#reminderForm').toggleClass('expand');
+});
 
-        //bmi range
+/* appointmentSection */
+$(document).on('click', '#appointmentSection #appointmentToggle', function() {
+    $('#appointmentForm').toggleClass('expand');
+});
 
-        //$('...').text(bmi);
-        //$('...').text(bmiText);
-    } else {
-        //show error message
-    }
+/* historySection */
+$(document).on('click', '#historySection #historyToggle', function() {
+    $('#historyForm').toggleClass('expand');
 });

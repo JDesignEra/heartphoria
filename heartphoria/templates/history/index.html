@@ -1,32 +1,33 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section id="HistorySection">
+    <section id="historySection">
         <div class="card shadow-lg">
             <div class="card-body">
                 <h4 class="pb-3 text-center text-primary">Medical History</h4>
-                <!--<button id="AddAppointment" class="btn btn-outline-success btn-block">New Medical Appointment</button>-->
 
+                <button id="historyToggle" class="btn btn-outline-primary btn-block mb-4">New Medical History</button>
+                <div id="expandContainer">
+                    <form id="historyForm" class="text-left" method="post" novalidate>
+                        <div class="form-label-group text-left">
+                            <input id="date" class="form-control{{ ' is-invalid' if errors['date'] }}" type="date" placeholder="Date" name="date"{% if date %} value="{{ date }}"{% endif %} />
+                            <label for="date">Date</label>
+                            {% if errors['date'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['date'] }}</div>
+                            {% endif %}
+                        </div>
 
-                <form class="text-left" method="post" novalidate>
-                    <div class="form-label-group text-left">
-                        <input id="date" class="form-control{{ ' is-invalid' if errors['date'] }}" type="date" placeholder="Date" name="date"{% if date %} value="{{ date }}"{% endif %} />
-                        <label for="date">Date</label>
-                        {% if errors['date'] %}
-                            <div class="feedback invalid-tooltip fadeIn">{{ errors['date'] }}</div>
-                        {% endif %}
-                    </div>
+                        <div class="form-label-group text-left">
+                            <input id="description" class="form-control{{ ' is-invalid' if errors['description'] }}" type="text" placeholder="Description" name="description"{% if description %} value="{{ description }}"{% endif %} />
+                            <label for="description">Description</label>
+                            {% if errors['description'] %}
+                                <div class="feedback invalid-tooltip fadeIn">{{ errors['description'] }}</div>
+                            {% endif %}
+                        </div>
 
-                    <div class="form-label-group text-left">
-                        <input id="description" class="form-control{{ ' is-invalid' if errors['description'] }}" type="text" placeholder="Description" name="description"{% if description %} value="{{ description }}"{% endif %} />
-                        <label for="description">Description</label>
-                        {% if errors['description'] %}
-                            <div class="feedback invalid-tooltip fadeIn">{{ errors['description'] }}</div>
-                        {% endif %}
-                    </div>
-
-                    <button class="btn btn-success btn-block mb-4" type="submit">New Medication History</button>
-                </form>
+                        <button class="btn btn-success btn-block mb-4" type="submit">Add Medication History</button>
+                    </form>
+                </div>
 
                 {% if histories %}
                     <table class="table table-striped">

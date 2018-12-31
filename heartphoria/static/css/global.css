@@ -5,9 +5,13 @@ body {
 
 main {
     flex: auto;
-    min-height: calc(100vh - 40px);
+    min-height: calc(100vh - 139px);
     padding-top: 56px !important;
     max-width: 2560px;
+}
+
+main.home {
+    min-height: calc(100vh - 673px - 139px);
 }
 
 /* Navbar */
@@ -92,12 +96,36 @@ footer .brand-logo {
     }
 }
 
+/* Form Expand Animation */
+#expandContainer {
+    overflow: hidden;
+}
+
+#reminderForm,
+#appointmentForm,
+#historyForm{
+    margin-top: -100%;
+    transition: margin-top 1s;
+}
+
+#reminderForm.expand,
+#appointmentForm.expand,
+#historyForm.expand {
+    margin-top: 0;
+}
+
 /* Buttons */
 .btn.btn-secondary {
     color: #ffffff;
 }
 
 /* Forms */
+.form-control.is-invalid,
+.was-validated .form-control:invalid {
+    padding-right: 0.75rem;
+    background-image: none;
+}
+
 .form-label-group .invalid-tooltip {
     right: 0;
     top: -1px;
@@ -130,7 +158,7 @@ footer .brand-logo {
     transition: all 0.1s ease-in-out;
 }
 
-.form-label-group input:-webkit-input-placeholder {
+.form-label-group input::-webkit-input-placeholder {
     color: transparent;
 }
 
