@@ -1,0 +1,52 @@
+$theme-colors: (
+  "primary": #bb0564,
+  "secondary": #fca904
+);
+
+$enable-shadows: true !default;
+// $enable-gradients: true !default;
+
+// Links
+$link-hover-color: darken(#bb0564, 0.5) !default;
+
+// Font
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+
+// Navs
+$navbar-light-hover-color: #bb0564 !default;
+$navbar-light-active-color: #bb0564 !default;
+
+// Table
+$table-striped-order: even !default;
+$table-accent-bg: rgba(#bb0564, 0.08) !default;
+
+// Dropdown
+$dropdown-link-hover-bg: rgba(#bb0564, 0.15) !default;
+
+// Spacers
+//$spacers: () !default;
+
+/*
+$spacers: map-merge((
+  0: 0,
+  1: ($spacer * .25),
+  2: ($spacer * .5),
+  3: $spacer,
+  4: ($spacer * 1.5),
+  5: ($spacer * 3)
+), $spacers);
+*/
+
+//$sizes: () !default;
+
+/*
+$sizes: map-merge((
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+  auto: auto
+), $sizes);
+*/
+
+@import 'scss/bootstrap';

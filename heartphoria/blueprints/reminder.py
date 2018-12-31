@@ -41,4 +41,4 @@ def index():
 
     reminders = db.execute('SELECT * FROM reminder WHERE user_id = ? ORDER BY time', [g.user['id']]).fetchall()
 
-    return render_template('reminder/index.html', time=time, medication=medication, quantity=quantity, errors=errors, reminders=reminders)
+    return render_template('reminder/index.html', title='Medication Reminder', time=time, medication=medication, quantity=quantity, errors=errors, reminders=reminders)

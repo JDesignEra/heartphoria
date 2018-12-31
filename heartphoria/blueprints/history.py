@@ -31,4 +31,4 @@ def index():
 
     histories = db.execute('SELECT * FROM history WHERE user_id = ? ORDER BY date DESC', [g.user['id']]).fetchall()
 
-    return render_template('history/index.html', date=date, description=description, errors=errors, histories=histories)
+    return render_template('history/index.html', title='Medical History', date=date, description=description, errors=errors, histories=histories)

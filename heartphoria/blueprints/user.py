@@ -35,7 +35,7 @@ def index(user_id):
     appointments = db.execute('SELECT * FROM appointment WHERE user_id = ? ORDER BY date_time DESC LIMIT 10', [user_id]).fetchall()
     histories = db.execute('SELECT * FROM history WHERE user_id = ? ORDER BY date DESC LIMIT 10', [user_id]).fetchall()
 
-    return render_template('user/index.html', reminders=reminders, appointments=appointments, histories=histories, bmi=bmi)
+    return render_template('user/index.html', title=g.user['name'], reminders=reminders, appointments=appointments, histories=histories, bmi=bmi)
 
 @blueprint.route('/edit', methods=['GET', 'POST'])
 @login_required
@@ -110,4 +110,4 @@ def edit():
 
                 return redirect(url_for('.index', user_id=g.user['id']))
 
-    return render_template('user/edit.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, errors=errors)
+    return render_template('user/edit.html', title='Edit Profile', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, errors=errors)
