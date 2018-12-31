@@ -3,28 +3,28 @@ $theme-colors: (
   "secondary": #fca904
 );
 
-$enable-shadows: true !default;
-// $enable-gradients: true !default;
+$enable-shadows: true;
+// $enable-gradients: true;
 
 // Links
-$link-hover-color: darken(#bb0564, 0.5) !default;
+$link-hover-color: darken(#bb0564, 0.5);
 
 // Font
-$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !default;
+$font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Roboto", "Segoe UI", "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 
 // Navs
-$navbar-light-hover-color: #bb0564 !default;
-$navbar-light-active-color: #bb0564 !default;
+$navbar-light-hover-color: #bb0564;
+$navbar-light-active-color: #bb0564;
 
 // Table
-$table-striped-order: even !default;
-$table-accent-bg: rgba(#bb0564, 0.08) !default;
+$table-striped-order: even;
+$table-accent-bg: rgba(#bb0564, 0.08);
 
 // Dropdown
-$dropdown-link-hover-bg: rgba(#bb0564, 0.15) !default;
+$dropdown-link-hover-bg: rgba(#bb0564, 0.15);
 
 // Spacers
-//$spacers: () !default;
+//$spacers: ();
 
 /*
 $spacers: map-merge((
@@ -37,7 +37,7 @@ $spacers: map-merge((
 ), $spacers);
 */
 
-//$sizes: () !default;
+//$sizes: ();
 
 /*
 $sizes: map-merge((

@@ -4,12 +4,12 @@
     <section id="ProfileSection">
         <div class="row mb-3">
             <div class="col-12 text-right">
-                <a class="btn btn-outline-primary" href="{{ url_for('.edit') }}">Edit Profile</a>
+                <a class="btn acrylic btn-outline-primary" href="{{ url_for('.edit') }}">Edit Profile</a>
             </div>
         </div>
         <div class="row">
             <div class="col-12 col-md-4">
-                <div class="card shadow-lg">
+                <div class="card acrylic-60 shadow-lg">
                     <div class="card-body text-center">
                         <img class="img-fluid shadow dp" src="{{ url_for('static', filename='images/dp/default.png') }}">
 
@@ -47,28 +47,28 @@
                 </div>
 
                 {% if bmi['index'] and bmi['text'] %}
-                    <div class="card shadow-lg mt-5">
+                    <div class="card acrylic-60 shadow-lg mt-5">
                         <div class="card-body text-center">
                             <h4 class="pb-3 text-primary">BMI</h4>
 
                             <h4 class="text-info">{{ bmi['index'] }}</h4>
-                            <h6 class="text-muted">You are at <span class="text-info text-uppercase font-weight-bold">{{ bmi['text'] }}</span></h6>
+                            <h6 class="text-white">You are at <span class="text-info text-uppercase font-weight-bold">{{ bmi['text'] }}</span></h6>
                         </div>
                     </div>
                 {% endif %}
 
-                <div class="card shadow-lg mt-5">
+                <div class="card acrylic-60 shadow-lg mt-5">
                     <div class="card-body text-center">
                         <h4 class="pb-4 text-primary">Account Information</h4>
 
                         <h6>Email</h6>
-                        <p>{{ g.user['email'] }}</p>
+                        <p class="text-primary">{{ g.user['email'] }}</p>
                     </div>
                 </div>
             </div>
 
             <div class="col-12 col-md-8 mt-4 mt-md-0">
-                <div class="card text-center shadow-lg">
+                <div class="card acrylic-60 text-center shadow-lg">
                     <div class="card-header">
                         <ul class="nav nav-pills nav-fill card-header-pills">
                             <li class="nav-item">

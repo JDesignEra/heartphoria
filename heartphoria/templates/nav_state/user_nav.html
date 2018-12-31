@@ -23,14 +23,14 @@
     <hr class="d-block d-md-none d-lg-none d-xl-none" />
 
     <ul class="navbar-nav d-block d-md-none d-lg-none d-xl-none">
-        <li class="nav-item">
+        <li class="nav-item w-100">
             <a class="nav-link{{ ' active' if request.endpoint == 'user.index' }}" href="{{ url_for('user.index', user_id=g.user['id']) }}">
                 <i class="far fa-user mr-2"></i> Profile
             </a>
         </li>
 
         <li class="nav-item w-100 mt-2">
-            <a class="nav-link" href="{{ url_for('auth.logout') }}">
+            <a class="nav-link text-danger" href="{{ url_for('auth.logout') }}">
                 <i class="far fa-power-off mr-2"></i> Logout
             </a>
         </li>

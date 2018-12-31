@@ -5,14 +5,14 @@
         <form class="text-left" method="post" novalidate>
             <div class="row mb-3">
                 <div class="col-12 text-right">
-                    <button type="submit" class="btn btn-success">Save</button>
-                    <a class="btn btn-outline-danger" href="{{ url_for('.index', user_id=g.user['id']) }}">Cancel</a>
+                    <button type="submit" class="btn acrylic btn-outline-success mr-2">Save</button>
+                    <a class="btn acrylic btn-outline-danger shadow" href="{{ url_for('.index', user_id=g.user['id']) }}">Cancel</a>
                 </div>
             </div>
 
             <div class="row">
                 <div class="col-12 col-md-4">
-                    <div class="card shadow-lg">
+                    <div class="card acrylic-60 shadow-lg">
                         <div class="card-body text-center">
                             <img class="img-fluid shadow dp mb-4" src="{{ url_for('static', filename='images/dp/default.png') }}">
 
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="col-12 col-md-8">
-                    <div class="card shadow-lg">
+                    <div class="card acrylic-60 shadow-lg">
                         <div class="card-body text-left">
                             <h4 class="pb-4 text-primary">Account Information</h4>
 

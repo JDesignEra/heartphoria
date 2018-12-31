@@ -1,6 +1,8 @@
 body {
+    background-image: url("../images/background/background.png");
     background-size: cover;
     background-repeat: no-repeat;
+    background-position: center;
 }
 
 main {
@@ -104,7 +106,7 @@ footer .brand-logo {
 #reminderForm,
 #appointmentForm,
 #historyForm{
-    margin-top: -100%;
+    margin-top: -100vh;
     transition: margin-top 1s;
 }
 
@@ -117,6 +119,13 @@ footer .brand-logo {
 /* Buttons */
 .btn.btn-secondary {
     color: #ffffff;
+}
+
+/* Card */
+.card .table {
+    width: calc(100% + 1.25rem + 1.25rem);
+    margin-left: -1.25rem;
+    margin-right: -1.25rem;
 }
 
 /* Forms */
@@ -206,13 +215,15 @@ footer .brand-logo {
 }
 
 /* Acrylic */
-.acrylic {
+.acrylic,
+.acrylic-60 {
     background-color: transparent;
     position: relative;
     overflow: hidden;
 }
 
-.acrylic::before {
+.acrylic::before,
+.acrylic-60::before {
     filter: blur(10px);
     content: "";
     position: absolute;
@@ -221,7 +232,8 @@ footer .brand-logo {
     z-index: -1;
 }
 
-.acrylic::after {
+.acrylic::after,
+.acrylic-60::after {
     content: "";
     position: absolute;
     left: 0;
@@ -229,8 +241,114 @@ footer .brand-logo {
     right: 0;
     bottom: 0;
     z-index: -1;
-    opacity: 0.45;
+    opacity: .45;
     border: 0.5px solid #fff;
     background: #fff;
     background-image: url('../images/background/acrylic_overlay.png');
+}
+
+.acrylic-60::after {
+    opacity: 0.6;
+}
+
+.acrylic .table-striped tbody tr:nth-of-type(even),
+.acrylic-60 .table-striped tbody tr:nth-of-type(even) {
+    color: #ffffff;
+    background-color: rgba(187,5,100,.45);
+}
+
+.acrylic .table th,
+.acrylic .table td,
+.acrylic-60 .table th,
+.acrylic-60 .table td {
+    border-top: 1px solid #bb0564;
+}
+
+.acrylic .table thead th,
+.acrylic-60 .table thead th {
+    border-bottom: 2px solid #bb0564;
+}
+
+.acrylic-60 hr {
+    border-top: 1px solid #bb0564;
+}
+
+.acrylic .card-header,
+.acrylic-60 .card-header {
+    background-color: rgba(0,0,0,.08);
+    border-bottom: 1px solid rgba(0,0,0,.3);
+}
+
+/* Acrylic Buttons */
+.btn.acrylic {
+    color: #ffffff;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15) !important;
+}
+
+.btn.acrylic:not([class*=" btn-outline-"]) {
+    border: none;
+    padding: calc(0.375rem + 1px) calc(0.75rem + 1px);
+}
+
+.btn.acrylic::before {
+    filter: blur(10px);
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.btn.acrylic::after {
+    border: none;
+    opacity: 0.55;
+}
+
+/* btn-primary */
+.btn.acrylic.btn-primary::after {
+    opacity: .85 !important;
+    background: #bb0564;
+}
+
+.btn.acrylic.btn-primary:hover {
+    background-color: #960450;
+    border-color: #960450;
+}
+
+.btn.acrylic.btn-primary:active {
+    background-color: #890449;
+    border-color: #7d0343;
+}
+
+/* btn-outline-primary */
+.btn.acrylic.btn-outline-primary::after {
+    background: #bb0564;
+}
+
+.btn.acrylic.btn-outline-primary:hover {
+    background-color: #bb0564;
+    border-color: #bb0564;
+}
+
+/* btn-outline-success */
+.btn.acrylic.btn-outline-success::after {
+    background: #28a745;
+}
+
+.btn.acrylic.btn-outline-success:hover {
+    background-color: #28a745;
+    border-color: #28a745;
+}
+
+/* btn-outline-danger */
+.btn.acrylic.btn-outline-danger::after {
+    background: #dc3545;
+}
+
+.btn.acrylic.btn-danger:hover {
+    background-color: #dc3545;
+    border-color: #dc3545;
 }

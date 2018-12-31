@@ -1,29 +1,53 @@
-var animationEnd = (function(el) {
-        var animations = {
-            "animation": "animationend",
-            "OAnimation": "oAnimationEnd",
-            "MozAnimation": "mozAnimationEnd",
-           "WebkitAnimation": "webkitAnimationEnd"
-        };
-
-        for(var t in animations) {
-            if(el.style[t] !== undefined) {
-                return animations[t];
-            }
-        }
-})(document.createElement("fakeElement"));
-
 /* reminderSection */
 $(document).on('click', '#reminderSection #reminderToggle', function() {
-    $('#reminderForm').toggleClass('expand');
+    let focus = $('#reminderForm');
+    let btnFocus = $(this);
+
+    focus.toggleClass('expand');
+    focus.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
+        if(focus.hasClass('expand')) {
+            btnFocus.addClass('active');
+            btnFocus.text('Hide New Medication Reminder');
+        }
+        else {
+            btnFocus.removeClass('active');
+            btnFocus.text('New Medication Reminder');
+        }
+    });
 });
 
 /* appointmentSection */
 $(document).on('click', '#appointmentSection #appointmentToggle', function() {
-    $('#appointmentForm').toggleClass('expand');
+    let focus = $('#appointmentForm');
+    let btnFocus = $(this);
+
+    focus.toggleClass('expand');
+    focus.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
+        if(focus.hasClass('expand')) {
+            btnFocus.addClass('active');
+            btnFocus.text('Hide New Medical Appointment');
+        }
+        else {
+            btnFocus.removeClass('active');
+            btnFocus.text('New Medical Appointment');
+        }
+    });
 });
 
 /* historySection */
 $(document).on('click', '#historySection #historyToggle', function() {
-    $('#historyForm').toggleClass('expand');
+    let focus = $('#historyForm');
+    let btnFocus = $(this);
+
+    focus.toggleClass('expand');
+    focus.one('webkitTransitionEnd otransitionend oTransitionEnd msTransitionEnd transitionend', function () {
+        if(focus.hasClass('expand')) {
+            btnFocus.addClass('active');
+            btnFocus.text('Hide New Medical History');
+        }
+        else {
+            btnFocus.removeClass('active');
+            btnFocus.text('New Medical History');
+        }
+    });
 });
