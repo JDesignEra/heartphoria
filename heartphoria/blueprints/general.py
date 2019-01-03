@@ -4,6 +4,7 @@ from heartphoria.db import get_db
 
 blueprint = Blueprint('general', __name__)
 
+
 @blueprint.route('/', methods=['GET', 'POST'])
 def index():
     reminders = None

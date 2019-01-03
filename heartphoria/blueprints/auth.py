@@ -4,9 +4,11 @@ import re
 from flask import Blueprint, g, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from heartphoria.mail import send_mail
 from heartphoria.db import get_db
 
 blueprint = Blueprint('auth', __name__)
+
 
 @blueprint.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -47,9 +49,16 @@ def signup():
             db.execute('INSERT INTO user (email, password, name, role) VALUES (?, ?, ?, ?)', [email.lower(), generate_password_hash(password), name, 'user'])
             db.commit()
 
+            send_mail(
+                email,
+                '[Heartphoria] Sign Up Successful',
+                render_template('email/signup.html', name=name, email=email, password=password).replace('\n', ''),
+            )
+
             return redirect(url_for('.login'))
 
     return render_template('auth/signup.html', title='Sign up', name=name, email=email, errors=errors)
+
 
 @blueprint.route('/login', methods=['GET', 'POST'])
 def login():
@@ -80,6 +89,7 @@ def login():
 
     return render_template('auth/login.html', title='Log in', email=email, errors=errors)
 
+
 @blueprint.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
@@ -89,11 +99,13 @@ def load_logged_in_user():
     else:
         g.user = get_db().execute('SELECT * FROM user WHERE id = ?', [user_id]).fetchone()
 
+
 @blueprint.route('/logout')
 def logout():
     session.clear()
 
     return redirect(url_for('general.index'))
+
 
 def login_required(view):
     @functools.wraps(view)

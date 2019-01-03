@@ -1,13 +1,14 @@
-import datetime
 import re
 
 from flask import Blueprint, g, redirect, render_template, request, url_for
 from werkzeug.security import generate_password_hash
 
 from heartphoria.blueprints.auth import login_required
+from heartphoria.mail import send_mail
 from heartphoria.db import get_db
 
 blueprint = Blueprint('user', __name__, url_prefix='/user')
+
 
 @blueprint.route('/<int:user_id>')
 @login_required
@@ -36,6 +37,7 @@ def index(user_id):
     histories = db.execute('SELECT * FROM history WHERE user_id = ? ORDER BY date DESC LIMIT 10', [user_id]).fetchall()
 
     return render_template('user/index.html', title=g.user['name'], reminders=reminders, appointments=appointments, histories=histories, bmi=bmi)
+
 
 @blueprint.route('/edit', methods=['GET', 'POST'])
 @login_required
@@ -100,9 +102,16 @@ def edit():
                 data['password'] = generate_password_hash(password)
 
         if not errors:
-            if not data:
-                errors['all'] = 'Nothing to update.'
+            if (not name or name == g.user['name']) and (not gender or gender == g.user['gender']) and (not dob or dob == str(g.user['dob'])) and (not height or height == str(g.user['height'])) and (not weight or weight == str(g.user['weight'])) and (email == g.user['email']):
+                errors['all'] = 'Nothing to update'
             else:
+                to = [g.user['email'], email] if email else g.user['email']
+                send_mail(
+                    to,
+                    '[Heartphoria] Account Details Changed',
+                    render_template('email/edit_profile.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, password=password).replace('\n', '')
+                )
+
                 db.execute('UPDATE user SET ' + ', '.join(key + ' = ?' for key in data.keys()) + ' WHERE id = ?', [value for value in data.values()] + [g.user['id']])
                 db.commit()
                 

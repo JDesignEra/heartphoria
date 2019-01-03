@@ -7,6 +7,7 @@ from heartphoria.db import get_db
 
 blueprint = Blueprint('reminder', __name__, url_prefix='/reminder')
 
+
 @blueprint.route('/', methods=['GET', 'POST'])
 @login_required
 def index():

@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <section id="EditProfileSection">
+    <section id="editProfileSection">
         <form class="text-left" method="post" novalidate>
             <div class="row mb-3">
                 <div class="col-12 text-right">
@@ -17,72 +17,81 @@
                             <img class="img-fluid shadow dp mb-4" src="{{ url_for('static', filename='images/dp/default.png') }}">
 
                             <div class="form-label-group text-left">
-                                <input id="name" class="form-control{{ ' is-invalid' if errors['name'] }}" type="text" placeholder="Name" name="name" value="{{ name or g.user['name'] }}" />
+                                <input id="name" class="form-control{{ ' is-invalid' if errors['name'] or errors['all'] }}" type="text" placeholder="Name" name="name" value="{{ name or g.user['name'] }}" />
                                 <label for="name">Name</label>
-                                {% if errors['name'] %}
-                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['name'] }}</div>
+                                {% if errors['name'] or errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] if errors['all'] else errors['name'] }}</div>
                                 {% endif %}
                             </div>
 
                             <div class="form-label-group">
-                                <select class="form-control{{ ' is-invalid' if errors['gender'] }}" name="gender">
+                                <select class="form-control{{ ' is-invalid' if errors['gender'] or errors['all'] }}" name="gender">
                                     <option {{ 'selected ' if not gender or not g.user['gender'] }}disabled>Gender (Required)</option>
                                     <option value="Male" {{ ' selected' if gender == 'Male' or g.user['gender'] == 'Male' }}>Male</option>
                                     <option value="Female" {{ ' selected' if gender == 'Female' or g.user['gender'] == 'Female' }}>Female</option>
                                 </select>
-                                {% if errors['gender'] %}
-                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['gender'] }}</div>
+                                {% if errors['gender'] or errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] if errors['all'] else errors['gender'] }}</div>
                                 {% endif %}
                             </div>
 
                             <div class="form-label-group text-left">
-                                <input id="dob" class="form-control" type="date" placeholder="Date Of Birth" name="dob"{% if dob or g.user['dob'] %} value="{{ dob or g.user['dob'] }}"{% endif %} />
+                                <input id="dob" class="form-control{{ ' is-invalid' if errors['all'] }}" type="date" placeholder="Date Of Birth" name="dob"{% if dob or g.user['dob'] %} value="{{ dob or g.user['dob'] }}"{% endif %} />
                                 <label for="dob">Date Of Birth</label>
+                                {% if errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] }}</div>
+                                {% endif %}
                             </div>
 
                             <div class="form-label-group text-left">
                                 <input id="height" class="form-control{{ ' is-invalid' if errors['all'] }}" type="number" placeholder="Height (cm)" name="height"{% if height or g.user['height'] %} value="{{ height or g.user['height'] }}"{% endif %} />
                                 <label for="height">Height (cm)</label>
+                                {% if errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] }}</div>
+                                {% endif %}
                             </div>
 
                             <div class="form-label-group text-left">
                                 <input id="weight" class="form-control{{ ' is-invalid' if errors['all'] }}" type="number" placeholder="Weight (kg)" name="weight"{% if weight or g.user['weight'] %} value="{{ weight or g.user['weight'] }}"{% endif %} />
                                 <label for="weight">Weight (kg)</label>
+                                {% if errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] }}</div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-8 mt-4 mt-md-0">
                     <div class="card acrylic-60 shadow-lg">
                         <div class="card-body text-left">
                             <h4 class="pb-4 text-primary">Account Information</h4>
 
                             <div class="form-label-group">
-                                <input id="email" class="form-control{{ ' is-invalid' if errors['email'] }}" type="email" placeholder="Email" name="email" value="{{ email or g.user['email'] }}" />
+                                <input id="email" class="form-control{{ ' is-invalid' if errors['email'] or errors['all'] }}" type="email" placeholder="Email" name="email" value="{{ email or g.user['email'] }}" />
                                 <label for="email">Email</label>
-                                {% if errors['email'] %}
-                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['email'] }}</div>
+                                {% if errors['email'] or errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] if errors['all'] or errors['email'] }}</div>
                                 {% endif %}
                             </div>
 
                             <hr/>
 
                             <div class="form-label-group">
-                                <input id="password" class="form-control{{ ' is-invalid' if errors['password'] }}" type="password" placeholder="Password" name="password" />
+                                <input id="password" class="form-control{{ ' is-invalid' if errors['password'] or errors['all'] }}" type="password" placeholder="Password" name="password" />
                                 <label for="password">Password</label>
-                                {% if errors['email'] %}
-                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['password'] }}</div>
+                                {% if errors['email'] or errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] if errors['all'] else errors['password'] }}</div>
                                 {% endif %}
                             </div>
                             <div class="form-label-group">
-                                <input id="confirm" class="form-control{{ ' is-invalid' if errors['confirm'] }}" type="password" placeholder="Confirm password" name="confirm" />
+                                <input id="confirm" class="form-control{{ ' is-invalid' if errors['confirm'] or errors['all'] }}" type="password" placeholder="Confirm password" name="confirm" />
                                 <label for="confirm">Confirm password</label>
-                                {% if errors['confirm'] %}
-                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['confirm'] }}</div>
+                                {% if errors['confirm'] or errors['all'] %}
+                                    <div class="feedback invalid-tooltip fadeIn">{{ errors['all'] if errors['all'] else errors['confirm'] }}</div>
                                 {% endif %}
                                 <small class="form-text">
-                                    More then 7 characters and contains 1 numeric, upper and lowercase.
+                                    At least 8 characters and contains 1 numeric, upper and lowercase.
                                 </small>
                             </div>
                         </div>
