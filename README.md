@@ -1,5 +1,11 @@
 <img src="heartphoria/static/images/logo/heartphoria_colored.png" />
 
+Setup
+------
+```
+pip install -r requirements.txt
+```
+
 Frameworks / Libraries / APIs / Languages
 ------
 * [Flask 1.0.2](http://flask.pocoo.org/)
