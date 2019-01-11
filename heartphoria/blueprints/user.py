@@ -109,7 +109,7 @@ def edit():
                 send_mail(
                     to,
                     '[Heartphoria] Account Details Changed',
-                    render_template('email/edit_profile.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, password=password).replace('\n', '')
+                    render_template('email/edit.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, password=password).replace('\n', '')
                 )
 
                 db.execute('UPDATE user SET ' + ', '.join(key + ' = ?' for key in data.keys()) + ' WHERE id = ?', [value for value in data.values()] + [g.user['id']])

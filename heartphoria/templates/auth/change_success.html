@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% set mainType = 'vCenter' %}
+{% set bodyImg = 'forgot_bg.png' %}
+
+{% block content %}
+    <section id="LoginSection">
+        <div class="col-12 col-md-6 mx-auto">
+            <div class="card text-center shadow acrylic">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Password Change Successful</h5>
+
+                    <p class="card-text">
+                        You have successfully changed your password.
+                        You can now login your account with your new password.
+                    </p>
+
+                    <a class="btn btn-primary" href="{{ url_for('auth.login') }}">Login</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

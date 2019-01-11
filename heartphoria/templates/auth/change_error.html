@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% set mainType = 'vCenter' %}
+{% set bodyImg = 'change_bg.png' %}
+
+{% block content %}
+    <section id="LoginSection">
+        <div class="col-12 col-md-6 mx-auto">
+            <div class="card text-center shadow acrylic">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">Expired Or Invalid Change Password Link</h5>
+
+                    <p class="card-text">
+                        It seems that the link to change your password has expired, or it's invalid.
+                        Please request for a new link instead if you need to change your account's password.
+                    </p>
+
+                    <a class="btn btn-primary" href="{{ url_for('auth.resend_forgot', user_id=user_id) }}">Resend Forgot Password Link</a>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

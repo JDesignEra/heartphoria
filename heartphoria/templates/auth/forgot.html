@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
 {% set mainType = 'vCenter' %}
-{% set bodyImg = 'login_bg.png' %}
+{% set bodyImg = 'forgot_bg.png' %}
 
 {% block content %}
     <section id="LoginSection">
         <div class="col-12 col-md-6 mx-auto">
             <div class="card text-center shadow acrylic">
                 <div class="card-body">
-                    <h5 class="card-title text-primary">Login</h5>
+                    <h5 class="card-title text-primary">Forgot Password</h5>
 
                     <p class="card-text">
-                        Have an account with Heartphoria?
+                        Enter your email address to request for a password change.
                     </p>
 
                     <form class="text-left" method="post" novalidate>
@@ -21,21 +21,12 @@
                                 <div class="feedback invalid-tooltip fadeIn">{{ errors['email'] }}</div>
                             {% endif %}
                         </div>
-                        <div class="form-label-group">
-                            <input id="password" class="form-control{{ ' is-invalid' if errors['password'] }}" type="password" placeholder="Password" name="password" />
-                            <label for="password">Password</label>
-                            {% if errors['password'] %}
-                                <div class="feedback invalid-tooltip fadeIn">{{ errors['password'] }}</div>
-                            {% endif %}
-                        </div>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary btn-block">
-                                <span class="signup-text fadeIn">Login</span>
+                            <button type="submit" class="btn btn-danger btn-block">
+                                <span class="signup-text fadeIn">Password Change Request</span>
                             </button>
                         </div>
-
-                        <a href="{{ url_for('auth.forgot') }}">Forgot password?</a>
                     </form>
                 </div>
             </div>

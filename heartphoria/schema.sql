@@ -12,7 +12,8 @@ CREATE TABLE IF NOT EXISTS user (
     dob         DATE,
     gender      TEXT,
     height      INTEGER DEFAULT 0,
-    weight      INTEGER DEFAULT 0
+    weight      INTEGER DEFAULT 0,
+    fcode       TEXT
 );
 
 CREATE TABLE IF NOT EXISTS reminder (
