@@ -8,12 +8,13 @@ pip install -r requirements.txt
 
 Frameworks / Libraries / APIs / Languages
 ------
+* [Python 3.6.0](https://www.python.org/)
 * [Flask 1.0.2](http://flask.pocoo.org/)
-* [Python 3.7.0](https://www.python.org/)
 * [Bootstrap 4.2.1](https://getbootstrap.com/)
 * [FontAwesome Pro 5.5.0](https://fontawesome.com/)
 * [jQuery 3.3.1](https://code.jquery.com/)
-* [yagmail](https://github.com/kootenpv/yagmail)
+* [yagmail 0.11.214](https://github.com/kootenpv/yagmail)
+* [Celery 4.2.0](http://docs.celeryproject.org/en/latest/index.html) with [RabbitMQ](https://www.rabbitmq.com/)
 
 Commit Legends
 ------

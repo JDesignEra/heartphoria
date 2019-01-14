@@ -4,6 +4,14 @@ from werkzeug.utils import find_modules, import_string
 
 app = Flask(__name__)
 app.secret_key = b'\xc44\xe9\xaf\x7f\xe0\xd2we\xc8\xbc\xda\x02sm\x16'
+app.config.update(
+    broker_url='amqp://heartphoria:password@localhost:5672/heartphoria',
+    result_backend='rpc://',
+    task_serializer='json',
+    accept_content=['json'],
+    timezone='Asia/Singapore',
+    enable_utc=True
+)
 
 from heartphoria import db
 db.init_app()

@@ -105,16 +105,15 @@ def edit():
             if (not name or name == g.user['name']) and (not gender or gender == g.user['gender']) and (not dob or dob == str(g.user['dob'])) and (not height or height == str(g.user['height'])) and (not weight or weight == str(g.user['weight'])) and (email == g.user['email']):
                 errors['all'] = 'Nothing to update'
             else:
-                to = [g.user['email'], email] if email else g.user['email']
-                send_mail(
-                    to,
-                    '[Heartphoria] Account Details Changed',
-                    render_template('email/edit.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, password=password).replace('\n', '')
-                )
-
                 db.execute('UPDATE user SET ' + ', '.join(key + ' = ?' for key in data.keys()) + ' WHERE id = ?', [value for value in data.values()] + [g.user['id']])
                 db.commit()
-                
+
+                send_mail(
+                    [g.user['email'], email] if email else g.user['email'],
+                    '[Heartphoria] Account Details Changed',
+                    render_template('email/edit.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, password=password)
+                )
+
                 g.user = db.execute('SELECT * FROM user WHERE id = ?', [g.user['id']]).fetchone()
 
                 return redirect(url_for('.index', user_id=g.user['id']))

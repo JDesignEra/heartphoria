@@ -54,7 +54,7 @@ def signup():
             send_mail(
                 email,
                 '[Heartphoria] Sign Up Successful',
-                render_template('email/signup.html', name=name, email=email, password=password).replace('\n', '')
+                render_template('email/signup.html', name=name, email=email, password=password)
             )
 
             return redirect(url_for('.login'))
@@ -118,7 +118,7 @@ def forgot():
                 send_mail(
                     email,
                     '[Heartphoria] Forgot Password',
-                    render_template('email/forgot.html', link=request.url_root + 'change/' + str(user['id']) + '/' + fcode).replace('\n', '')
+                    render_template('email/forgot.html', link=request.url_root + 'change/' + str(user['id']) + '/' + fcode)
                 )
 
                 return render_template('auth/forgot_success.html')
@@ -143,7 +143,7 @@ def resend_forgot(user_id):
         send_mail(
             user['email'],
             '[Heartphoria] Forgot Password',
-            render_template('email/forgot.html', link=request.url_root + 'change/' + str(user['id']) + '/' + fcode).replace('\n', '')
+            render_template('email/forgot.html', link=request.url_root + 'change/') + str(user['id']) + '/' + fcode
         )
 
     return render_template('auth/forgot_success.html')
@@ -182,12 +182,13 @@ def change(user_id, fcode):
             send_mail(
                 user['email'],
                 '[Heartphoria] Password Changed',
-                render_template('email/change.html', password=password).replace('\n', '')
+                render_template('email/change.html', password=password)
             )
 
             return render_template('auth/change_success.html', title='Change Password Successful')
 
     return render_template('auth/change.html', title='Change Password', errors=errors)
+
 
 @blueprint.before_app_request
 def load_logged_in_user():
