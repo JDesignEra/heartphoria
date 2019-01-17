@@ -15,9 +15,9 @@ def mail(to, subject, contents):
 
 
 def send_mail(to, subject, contents):
-    from heartphoria.task import celery_send_mail, get_celery_worker_status
+    from heartphoria.task import celery_send_mail, check_celery_worker_status
 
-    if 'error' in get_celery_worker_status():
+    if check_celery_worker_status():
         mail(to, subject, contents)
     else:
         celery_send_mail.delay(to, subject, contents)

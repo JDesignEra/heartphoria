@@ -86,7 +86,7 @@ def edit():
         if email:
             if not re.match(r"[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
                 errors['email'] = 'Email address is invalid.'
-            elif g.user['email'] != email and db.execute('SELECT id FROM user WHERE email = ?', [email]).fetchone() is not None:
+            elif g.user['email'] != email and not db.execute('SELECT id FROM user WHERE email = ?', [email]).fetchone() is not None:
                 errors['email'] = email + ' already exists.'
             else:
                 data['email'] = email.lower()
@@ -105,7 +105,7 @@ def edit():
             if (not name or name == g.user['name']) and (not gender or gender == g.user['gender']) and (not dob or dob == str(g.user['dob'])) and (not height or height == str(g.user['height'])) and (not weight or weight == str(g.user['weight'])) and (email == g.user['email']):
                 errors['all'] = 'Nothing to update'
             else:
-                db.execute('UPDATE user SET ' + ', '.join(key + ' = ?' for key in data.keys()) + ' WHERE id = ?', [value for value in data.values()] + [g.user['id']])
+                db.execute('UPDATE user SET ' + ', '.join(k + ' = ?' for k in data) + ' WHERE id = ?', [value for value in data.values()] + [g.user['id']])
                 db.commit()
 
                 send_mail(
