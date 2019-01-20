@@ -2,35 +2,65 @@
 {% set mainType = 'home' %}
 
 {% block content %}
-    <section id="homeSection">
+    <section id="HomeSection">
         <div class="row d-none d-md-flex">
-            <div class="col-12 col-md-3">
-                <a class="btn btn-primary btn-block py-3 py-md-5 shadow" href="">
-                    <i class="fas fa-hospital-alt fa-3x mb-2"></i><br>
-                    Hospital Locations
-                </a>
-            </div>
+            {% if g.user %}
+                <div class="col-12 col-md-3">
+                    <a class="btn btn-primary btn-block py-3 py-md-5 shadow" href="{{ url_for('hospital.index') }}">
+                        <i class="fas fa-hospital-alt fa-3x mb-2"></i><br>
+                        Hospital Locations
+                    </a>
+                </div>
 
-            <div class="col-12 col-md-3 mt-3 mt-md-0">
-                <a class="btn btn-secondary btn-block py-3 py-md-5 shadow" href="{{ url_for('auth.login') }}">
-                    <i class="fas fa-sign-in-alt fa-3x mb-2"></i><br>
-                    Login
-                </a>
-            </div>
+                <div class="col-12 col-md-3 mt-3 mt-md-0">
+                    <a class="btn btn-secondary btn-block py-3 py-md-5 shadow" href="{{ url_for('reminder.index') }}">
+                        <i class="fas fa-bell fa-3x mb-2"></i><br>
+                        Medication Reminder
+                    </a>
+                </div>
 
-            <div class="col-12 col-md-3 mt-3 mt-md-0">
-                <a class="btn btn-primary btn-block py-3 py-md-5 shadow" href="{{ url_for('auth.signup') }}">
-                    <i class="fas fa-user-plus fa-3x mb-2"></i><br>
-                    Sign Up
-                </a>
-            </div>
+                <div class="col-12 col-md-3 mt-3 mt-md-0">
+                    <a class="btn btn-primary btn-block py-3 py-md-5 shadow" href="{{ url_for('appointment.index') }}">
+                        <i class="fas fa-calendar-check fa-3x mb-2"></i><br>
+                        Medical Appointment
+                    </a>
+                </div>
 
-            <div class="col-12 col-md-3 mt-3 mt-md-0">
-                <a class="btn btn-secondary btn-block py-3 py-md-5 shadow" href="{{ url_for('auth.forgot') }}">
-                    <i class="fas fa-unlock-alt fa-3x mb-2"></i><br>
-                    Forgot Password
-                </a>
-            </div>
+                <div class="col-12 col-md-3 mt-3 mt-md-0">
+                    <a class="btn btn-secondary btn-block py-3 py-md-5 shadow" href="{{ url_for('history.index') }}">
+                        <i class="fas fa-history fa-3x mb-2"></i><br>
+                        Medical History
+                    </a>
+                </div>
+            {% else %}
+                <div class="col-12 col-md-3">
+                    <a class="btn btn-primary btn-block py-3 py-md-5 shadow" href="{{ url_for('hospital.index') }}">
+                        <i class="fas fa-hospital-alt fa-3x mb-2"></i><br>
+                        Hospital Locations
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-3 mt-3 mt-md-0">
+                    <a class="btn btn-secondary btn-block py-3 py-md-5 shadow" href="{{ url_for('auth.login') }}">
+                        <i class="fas fa-sign-in-alt fa-3x mb-2"></i><br>
+                        Login
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-3 mt-3 mt-md-0">
+                    <a class="btn btn-primary btn-block py-3 py-md-5 shadow" href="{{ url_for('auth.signup') }}">
+                        <i class="fas fa-user-plus fa-3x mb-2"></i><br>
+                        Sign Up
+                    </a>
+                </div>
+
+                <div class="col-12 col-md-3 mt-3 mt-md-0">
+                    <a class="btn btn-secondary btn-block py-3 py-md-5 shadow" href="{{ url_for('auth.forgot') }}">
+                        <i class="fas fa-unlock-alt fa-3x mb-2"></i><br>
+                        Forgot Password
+                    </a>
+                </div>
+            {% endif %}
         </div>
 
         <div class="row">
@@ -43,16 +73,114 @@
             </div>
 
             <div class="col-12 col-md-4">
-                <!-- TODO: Weather API
                 <div class="card acrylic shadow mt-4">
-                    <div class="card-body">
-                        <h4 class="pb-3 text-center text-primary">Weather</h4>
-                        <p>
-                            Placeholder
-                        </p>
+                    <div class="card-body text-center">
+                        <h4 class="pb-3 text-primary">Weather</h4>
+
+                        {% if weather %}
+                            <img class="weather-icon mb-4" src="{{ url_for('static', filename='images/weather_icons/%s.svg' % weather['weather_icon']) }}">
+
+                            <h2 class="text-primary">{{ weather['temperature'] }}&deg;C</h2>
+                            <h6>{{ weather['weather_text'] }}</h6>
+
+                            <hr>
+
+                            <h6>Feels Like</h6>
+                            {% if weather['feel_temperature'] < 26 %}
+                                <h4 class="text-info">{{ weather['feel_temperature'] }}&deg;C</h4>
+                            {% elif weather['feel_temperature'] >26 and weather['feel_temperature'] < 30 %}
+                                <h4 class="text-success">{{ weather['feel_temperature'] }}&deg;C</h4>
+                            {% else %}
+                                <h4 class="text-danger">{{ weather['feel_temperature'] }}&deg;C</h4>
+                            {% endif %}
+
+                            <div class="collapse mt-4" id="Weather-Details">
+                                <hr>
+
+                                <h6>UV Index</h6>
+                                <h4 class="text-primary">{{ weather['uv_index'] }}</h4>
+                                <h6 class="text-muted">{{ weather['uv_index_text'] }}</h6>
+
+                                <hr>
+
+                                <h6>Visibility</h6>
+                                <h4 class="text-primary">{{ weather['visibility'] }} km</h4>
+
+                                <hr>
+
+                                <h6>Cloud Cover</h6>
+                                <h4 class="text-primary">{{ weather['cloud_cover'] }}&percnt;</h4>
+
+                                <hr>
+
+                                <h6>Humidity</h6>
+                                <h4 class="text-primary">{{ weather['humidity'] }}&percnt;</h4>
+
+                                <hr>
+
+                                <h6>Pressure</h6>
+                                <h4 class="text-primary">
+                                    {{ weather['pressure'] }} mb
+
+                                    {% if weather['pressure_tendency'] == 'falling' %}
+                                        <i class="fas fa-arrow-down"></i>
+                                    {% elif weather['pressure_tendency'] == 'rising' %}
+                                        <i class="fas fa-arrow-up"></i>
+                                    {% else %}
+                                        <i class="fas fa-arrows-h"></i>
+                                    {% endif %}
+                                </h4>
+
+                                <hr>
+
+                                <h6>Dew Point</h6>
+                                <h4 class="text-primary">{{ weather['dew_point'] }}&deg;C</h4>
+                            </div>
+
+                            <button id="WeatherDetailsToggle" class="btn btn-info btn-block collapsed" href="#Weather-Details" data-toggle="collapse">
+                                Show More Details
+                            </button>
+                        {% else %}
+                            <p>
+                                <h6 class="text-muted">Whoops! Can't get weather information.</h6>
+                            </p>
+                        {% endif %}
                     </div>
                 </div>
-                -->
+
+                <div class="card acrylic shadow mt-4">
+                    <div class="card-body text-center">
+                        <h4 class="pb-3 text-primary">Wind</h4>
+
+                        {% if weather %}
+                            <div class="wind-compass mx-auto mb-4">
+                                <img src="{{ url_for('static', filename='images/wind_compass/arrow.png') }}" style="transform: rotate({{ weather['wind_direction'] }}deg)">
+                            </div>
+                            
+                            <h4 class="text-primary">{{ weather['wind_direction'] }}&deg;</h4>
+
+                            {% set wind_direction_localized = {
+                                'N': 'North',
+                                'NNE': 'North North-East',
+                                'NNW': 'North North-West',
+                                'SSE': 'South South-East',
+                                'SSW': 'South South-West',
+                                'SSW': 'South South-West',
+                                'E': 'East',
+                                'W': 'West'
+                            } %}
+
+                            <h6 class="text-muted">{{ wind_direction_localized[weather['wind_direction_text']] }}</h6>
+
+                            <hr>
+
+                            <h6>Speed</h6>
+                            <h4 class="text-primary">{{ weather['wind_speed'] }} km/h</h4>
+                        {% else %}
+                            <h6 class="text-muted">Whoops! Can't get wind information.</h6>
+                        {% endif %}
+                    </div>
+                </div>
 
                 <div class="card acrylic shadow mt-4">
                     <div class="card-body">
@@ -71,8 +199,8 @@
 
                             {% if bmi['index'] and bmi['text'] %}
                                 <div class="fadeIn">
-                                    <h2 class="text-info text-center">{{ bmi['index'] }}</h2>
-                                    <h6 class="text-center text-muted">you are at <span class="text-info text-uppercase font-weight-bold">{{ bmi['text'] }}</span></h6>
+                                    <h2 class="text-primary text-center">{{ bmi['index'] }}</h2>
+                                    <h6 class="text-center text-muted">you are at <span class="text-primary text-uppercase font-weight-bold">{{ bmi['text'] }}</span></h6>
                                 </div>
                             {% endif %}
 

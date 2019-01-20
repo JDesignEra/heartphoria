@@ -80,6 +80,25 @@ footer .brand-logo {
     max-height: 300px;
 }
 
+#HomeSection img.weather-icon {
+    max-width: 250px;
+}
+
+#HomeSection .wind-compass {
+    background-image: url("../images/wind_compass/compass_outline.png");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 10rem;
+    width: 10rem;
+}
+
+#HomeSection .wind-compass img {
+    margin: 2.5rem;
+    height: 5rem;
+    width: 5rem;
+}
+
 .carousel .carousel-item {
     height: 50vh;
     padding-top: 82px;
@@ -98,22 +117,29 @@ footer .brand-logo {
     }
 }
 
-/* Form Expand Animation */
-#expandContainer {
-    overflow: hidden;
+/* HospitalSection */
+#HospitalSection .list-group {
+    max-height: 600px;
+    overflow: auto;
+    display: inherit;
 }
 
-#reminderForm,
-#appointmentForm,
-#historyForm{
-    margin-top: -100vh;
-    transition: margin-top 1s;
+#HospitalSection .list-group-item-action {
+    cursor: pointer;
 }
 
-#reminderForm.expand,
-#appointmentForm.expand,
-#historyForm.expand {
-    margin-top: 0;
+#HospitalSection #map {
+    min-height: 600px;
+}
+
+@media (max-width: 767.98px) {
+    #HospitalSection .list-group {
+        max-height: 200px;
+    }
+
+    #HospitalSection #map {
+        min-height: 400px;
+    }
 }
 
 /* Buttons */

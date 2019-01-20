@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    <link href='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.css' rel='stylesheet' />
+{% endblock %}
+
+{% block content %}
+<section id="HospitalSection">
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>Whoops!</strong> You did not allow us to know your location or your browser does not support it.
+    </div>
+
+    <div class="card acrylic-60 shadow-lg">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-5">
+                    <div class="input-group mb-4">
+                        <input id="Search" type="text" class="form-control" placeholder="Search With Name Or Address">
+                        <div class="input-group-append">
+                            <button class="btn btn-danger" type="button">
+                                &times;
+                            </button>
+                        </div>
+                    </div>
+
+                    <ul class="list-group">
+                        {% for location in locations %}
+                            <button class="list-group-item list-group-item-action" data-name="{{ location['name']|lower }}" data-address="{{ location['address']|lower }}" data-lat="{{ location['lat'] }}" data-lng="{{ location['lng'] }}">
+                                <p>{{ location['name'] }}</p>
+                                <p class="small">{{ location['address'] }}</p>
+                            </button>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-12 col-md-7 mt-4 mt-md-0">
+                    <div id="map" class="w-100 h-100"></div>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-12 text-right">
+                    <button id="ZoomLocation" class="btn btn-outline-primary d-none">
+                        Zoom to Location
+                    </button>
+
+                    <button id="ZoomMe" class="btn btn-primary">
+                        Zoom to Me
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block beforeScript %}
+    <script>
+        let token = '{{ token }}';
+    </script>
+    <script src='https://api.mapbox.com/mapbox-gl-js/v0.52.0/mapbox-gl.js'></script>
+{% endblock %}

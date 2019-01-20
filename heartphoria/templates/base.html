@@ -43,7 +43,9 @@
                 <li class="nav-item{{ ' active' if request.endpoint == 'general.index' }}">
                     <a class="nav-link" href="{{ url_for('general.index') }}">Home</a>
                 </li>
-
+                <li class="nav-item{{ ' active' if request.endpoint == 'hospital.index' }}">
+                    <a class="nav-link" href="{{ url_for('hospital.index') }}">Hospital Locations</a>
+                </li>
                 {% if g.user %}
                     <li class="nav-item{{ ' active' if request.endpoint == 'reminder.index' }}">
                         <a class="nav-link" href="{{ url_for('reminder.index') }}">Medication Reminder</a>
@@ -77,8 +79,8 @@
             <div class="carousel-inner">
                 <div class="carousel-item active" style="background-image: url('{{ url_for('static', filename='images/background/signup_bg_slider.png') }}')">
                     <div class="d-flex flex-column justify-content-center h-100 text-center text-white px-4">
-                        <h2 class="mb-2">Welcome to EcoSplash</h2>
-                        <h6 class="mt-2">Start being environmental friendly and save our earth with us today.</h6>
+                        <h2 class="mb-2">Welcome to Heartphoria</h2>
+                        <h6 class="mt-2">Start keeping track of your medical appointment and medication schedules.</h6>
                         {% if g.user['id'] %}
                             <a class="btn btn-success w-50 mx-auto mt-5" href="{{ url_for('auth.signup') }}">Sign Up</a>
                         {% endif %}
@@ -148,6 +150,7 @@
     <script src="{{ url_for('static', filename='js/jquery-3.3.1.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/popper.min.js') }}"></script>
     <script src="{{ url_for('static', filename='js/bootstrap.min.js') }}"></script>
+    {% block beforeScript %}{% endblock %}
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     {% block scripts %}{% endblock %}
 </body>

@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS history (
 
 CREATE TABLE IF NOT EXISTS weather (
     id                    INTEGER PRIMARY KEY AUTOINCREMENT,
-    last_update           DATETIME,
+    last_update           TIMESTAMP,
     weather_text          TEXT,
     weather_icon          INTEGER,
     temperature           FLOAT,
@@ -54,5 +54,15 @@ CREATE TABLE IF NOT EXISTS weather (
     visibility            FLOAT,
     cloud_cover           INTEGER,
     pressure              FLOAT,
+    pressure_tendency     TEXT,
     dew_point             FLOAT
+);
+
+CREATE TABLE IF NOT EXISTS hospital (
+  id                      TEXT PRIMARY KEY,
+  last_update             DATE,
+  name                    TEXT,
+  address                 TEXT,
+  lat                     FLOAT,
+  lng                     FLOAT
 );

@@ -3,6 +3,7 @@ import re
 import random
 import string
 
+import requests
 from flask import Blueprint, g, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
@@ -100,6 +101,7 @@ def forgot():
     db = get_db()
 
     if request.method == 'POST':
+        link = None
         email = request.form.get('email')
 
         if not email:
@@ -115,10 +117,15 @@ def forgot():
                 db.execute('UPDATE user SET fcode = ? WHERE id = ?', (fcode, user['id']))
                 db.commit()
 
+                if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
+                    link = 'https://heartphoria.ap.ngrok.io/change/' + str(user['id']) + '/' + fcode
+                else:
+                    link = request.url_root + 'change/' + str(user['id']) + '/' + fcode
+
                 send_mail(
                     email,
                     '[Heartphoria] Forgot Password',
-                    render_template('email/forgot.html', link=request.url_root + 'change/' + str(user['id']) + '/' + fcode)
+                    render_template('email/forgot.html', link=link)
                 )
 
                 return render_template('auth/forgot_success.html')
@@ -128,6 +135,7 @@ def forgot():
 
 @blueprint.route('/forgot/<int:user_id>')
 def resend_forgot(user_id):
+    link = None
     db = get_db()
 
     user = db.execute('SELECT * FROM user WHERE id = ?', [user_id]).fetchone()
@@ -140,10 +148,15 @@ def resend_forgot(user_id):
         db.execute('UPDATE user SET fcode = ? WHERE id = ?', [fcode, user['id']])
         db.commit()
 
+        if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
+            link = 'https://heartphoria.ap.ngrok.io/change/' + str(user['id']) + '/' + fcode
+        else:
+            link = request.url_root + 'change/' + str(user['id']) + '/' + fcode
+
         send_mail(
             user['email'],
             '[Heartphoria] Forgot Password',
-            render_template('email/forgot.html', link=request.url_root + 'change/') + str(user['id']) + '/' + fcode
+            render_template('email/forgot.html', link=link)
         )
 
     return render_template('auth/forgot_success.html')

@@ -1,4 +1,4 @@
-from flask import Blueprint, g, redirect, render_template, request, url_for
+from flask import Blueprint, g, render_template, request
 
 from heartphoria.blueprints.auth import login_required
 from heartphoria.db import get_db

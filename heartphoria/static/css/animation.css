@@ -12,7 +12,32 @@
   animation-name: fadeIn;
 }
 
-.fadeIn {
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.fadeOut {
+  animation-name: fadeOut;
+}
+
+.fadeIn,
+.fadeOut {
   animation-duration: 1s;
   animation-fill-mode: both;
+}
+
+.fadeIn.short,
+.fadeOut.short {
+  animation-duration: 0.5s;
+}
+
+.fadeIn.shortest,
+.fadeOut.shortest{
+  animation-duration: 0.1s;
 }
