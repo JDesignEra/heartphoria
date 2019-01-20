@@ -198,7 +198,6 @@ if ($('#HospitalSection #map').length && typeof token !== 'undefined') {
                 lng,
                 lat
             ])
-            .setPopup(new mapboxgl.Popup({offset: 0}))
             .addTo(map);
 
             map.flyTo({
