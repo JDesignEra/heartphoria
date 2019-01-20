@@ -2,9 +2,10 @@
 
 Setup
 ------
-```
+```cmd
 pip install -r requirements.txt
 ```
+
 
 Frameworks / Libraries / APIs / Languages
 ------
@@ -13,6 +14,7 @@ Frameworks / Libraries / APIs / Languages
 * [Bootstrap 4.2.1](https://getbootstrap.com/)
 * [FontAwesome Pro 5.5.0](https://fontawesome.com/)
 * [jQuery 3.3.1](https://code.jquery.com/)
+* [requests 2.21.0](https://github.com/requests/requests/)
 * [yagmail 0.11.214](https://github.com/kootenpv/yagmail)
 * [Celery 4.2.0](http://docs.celeryproject.org/en/latest/index.html) with [RabbitMQ](https://www.rabbitmq.com/)
 
