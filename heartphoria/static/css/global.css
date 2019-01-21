@@ -72,7 +72,32 @@ footer .brand-logo {
 /* Profile & Edit Profile */
 #ProfileSection .card-body .dp,
 #EditProfileSection .card-body .dp {
+    background-color: #bb0564;
     border-radius: 8px;
+}
+
+#EditProfileSection .card-body .dp {
+    padding-top: 100%;
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+#EditProfileSection .card-body .dp .db-popup {
+    padding: calc(10% - 24px) 0;
+    border-radius: 8px;
+    background-color: rgba(0, 0, 0, .7);
+}
+
+#UploadModal #DragDropArea {
+    padding: 50% 0;
+    border: 2px #bb0564 dashed;
+    border-radius: 8px;
+    background-image: url("../images/background/upload_drag_drop.png");
+    background-size: contain;
+    background-position: center center;
+    background-repeat: no-repeat;
 }
 
 /* Home */
@@ -242,14 +267,16 @@ footer .brand-logo {
 
 /* Acrylic */
 .acrylic,
-.acrylic-60 {
+.acrylic-60,
+.acrylic-80 {
     background-color: transparent;
     position: relative;
     overflow: hidden;
 }
 
 .acrylic::before,
-.acrylic-60::before {
+.acrylic-60::before,
+.acrylic-80::before {
     filter: blur(10px);
     content: "";
     position: absolute;
@@ -259,7 +286,8 @@ footer .brand-logo {
 }
 
 .acrylic::after,
-.acrylic-60::after {
+.acrylic-60::after,
+.acrylic-80::after {
     content: "";
     position: absolute;
     left: 0;
@@ -275,6 +303,10 @@ footer .brand-logo {
 
 .acrylic-60::after {
     opacity: 0.6;
+}
+
+.acrylic-80::after {
+    opacity: 0.8;
 }
 
 .acrylic .table-striped tbody tr:nth-of-type(even),

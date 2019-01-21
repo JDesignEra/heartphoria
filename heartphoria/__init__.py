@@ -1,9 +1,12 @@
+import os
+
 from datetime import datetime
 from flask import Flask
 from werkzeug.utils import find_modules, import_string
 
 app = Flask(__name__)
 app.secret_key = b'\xc44\xe9\xaf\x7f\xe0\xd2we\xc8\xbc\xda\x02sm\x16'
+app.config['UPLOAD_FOLDER'] = os.getcwd() + '/heartphoria/static/images/dp/'
 app.config.from_pyfile('../secrets.conf')
 
 # Celery config, update broker_url & result_backend accordingly if you intend use Celery.

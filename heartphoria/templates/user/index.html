@@ -11,7 +11,7 @@
             <div class="col-12 col-md-4">
                 <div class="card acrylic-60 shadow-lg">
                     <div class="card-body text-center">
-                        <img class="img-fluid shadow dp" src="{{ url_for('static', filename='images/dp/default.png') }}">
+                        <img class="img-fluid shadow dp" src="{{ image if image else url_for('static', filename='images/dp/default.png') }}">
 
                         <h3 class="text-primary mt-4">{{ g.user['name'] }}</h3>
 

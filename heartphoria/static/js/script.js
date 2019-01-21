@@ -7,7 +7,7 @@ let animationEnd = (function(el) {
         };
 
         for(var t in animations) {
-            if(el.style[t] !== undefined) {
+            if (el.style[t] !== undefined) {
                 return animations[t];
             }
         }
@@ -17,7 +17,7 @@ let animationEnd = (function(el) {
 $(document).on('click', '#HomeSection #WeatherDetailsToggle', function () {
     let btnFocus = $(this);
 
-    if(btnFocus.hasClass('collapsed')) {
+    if (btnFocus.hasClass('collapsed')) {
         btnFocus.text('Show More Details');
     }
     else {
@@ -29,7 +29,7 @@ $(document).on('click', '#HomeSection #WeatherDetailsToggle', function () {
 $(document).on('click', '#ReminderSection #ReminderToggle', function() {
     let btnFocus = $(this);
 
-    if(btnFocus.hasClass('collapsed')) {
+    if (btnFocus.hasClass('collapsed')) {
         btnFocus.text('New Medication Reminder');
     }
     else {
@@ -41,7 +41,7 @@ $(document).on('click', '#ReminderSection #ReminderToggle', function() {
 $(document).on('click', '#AppointmentSection #AppointmentToggle', function() {
     let btnFocus = $(this);
 
-    if(btnFocus.hasClass('collapsed')) {
+    if (btnFocus.hasClass('collapsed')) {
         btnFocus.text('New Medical Appointment');
     }
     else {
@@ -53,13 +53,79 @@ $(document).on('click', '#AppointmentSection #AppointmentToggle', function() {
 $(document).on('click', '#HistorySection #HistoryToggle', function() {
     let btnFocus = $(this);
 
-    if(btnFocus.hasClass('collapsed')) {
+    if (btnFocus.hasClass('collapsed')) {
         btnFocus.text('New Medical History');
     }
     else {
         btnFocus.text('Hide New Medical History');
     }
 });
+
+/* EditProfileSection */
+if ($('#UploadModal').length) {
+    $(document).on('dragover', '#UploadModal #DragDropArea', function(e) {
+        e.preventDefault();
+    });
+
+    $(document).on('dragleave', '#UploadModal #DragDropArea', function(e) {
+        e.preventDefault();
+    });
+
+    $(document).on('drop', '#UploadModal #DragDropArea', function(e) {
+        e.preventDefault()
+
+        $('#UploadModal .feedback').addClass('d-none');
+
+        let uploads = e.originalEvent.dataTransfer.files || e.target.files || e.dataTransfer.files;
+
+        if (uploads.length > 1) {
+            let focus = $('#UploadModal .feedback');
+
+            $(focus).text('Only 1 image is allowed');
+            $(focus).removeClass('d-none');
+        }
+        else if (uploads[0].size > 2097152) {
+            let focus = $('#UploadModal .feedback');
+
+            $(focus).text('Image size cannot exceed 2MB');
+            $(focus).removeClass('d-none');
+        }
+        else {
+            let data = new FormData();
+            data.append('file', uploads[0])
+
+            $.ajax({
+                type: 'POST',
+                processData: false,
+                contentType: false,
+                data: data
+            })
+            .done(function() {
+                $('#UploadModal').modal('hide');
+                window.location.href = String(window.location.origin) + '/user/' + user_id;
+            });
+        }
+    });
+
+    $(document).on('click', '#UploadModal #DragDropArea', function() {
+        $('#UploadModal input[name=file]').click();
+    });
+
+    $(document).on('change', '#UploadModal input[name=file]', function() {
+        $('#UploadModal #UploadForm').submit();
+    });
+
+    $(document).on('mouseenter', '#EditProfileSection .card-body .dp', function() {
+        $(this).css('padding-top', 'calc(80% + 24px)');
+        $(this).find('.db-popup').removeClass('flipOutX d-none');
+        $(this).find('.db-popup').addClass('flipInX')
+    });
+
+    $(document).on('mouseleave', '#EditProfileSection .card-body .dp', function() {
+        $(this).css('padding-top', '');
+        $(this).find('.db-popup').addClass('d-none');
+    });
+}
 
 /* HospitalSection */
 /* Search Function */
@@ -128,13 +194,13 @@ if ($('#HospitalSection #map').length && typeof token !== 'undefined') {
     });
 
     /* Get current location & set user marker */
-    if(navigator.geolocation) {
+    if (navigator.geolocation) {
         $('#HospitalSection .alert').alert('close');
 
         let userMarker;
         let hospitalMarker;
 
-        if(userMarker) {
+        if (userMarker) {
             userMarker.remove();
         }
 
@@ -156,7 +222,7 @@ if ($('#HospitalSection #map').length && typeof token !== 'undefined') {
             let lat = pos.coords.latitude;
             let lng = pos.coords.longitude;
 
-            if(centerUserOnce) {
+            if (centerUserOnce) {
                 map.setCenter([lng, lat]);
                 map.setZoom(16);
                 map.setPitch(55);
@@ -210,7 +276,7 @@ if ($('#HospitalSection #map').length && typeof token !== 'undefined') {
             /* Set ZoomLocation data attributes */
             let btnFocus = $('button#ZoomLocation');
 
-            if(btnFocus.hasClass('d-none')) {
+            if (btnFocus.hasClass('d-none')) {
                 btnFocus.removeClass('d-none');
                 btnFocus.addClass('fadeIn shortest').one(animationEnd, function() {
                     $(this).removeClass('fadeIn shortest');
@@ -265,7 +331,7 @@ function drawDirection(map, fromLng, fromLat, toLng, toLat) {
             access_token: token
         },
         function(data) {
-            if(data['code'] == 'Ok') {
+            if (data['code'] == 'Ok') {
                 map.addLayer({
                     'id': 'route',
                     'type': 'line',

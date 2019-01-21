@@ -14,7 +14,17 @@
                 <div class="col-12 col-md-4">
                     <div class="card acrylic-60 shadow-lg">
                         <div class="card-body text-center">
-                            <img class="img-fluid shadow dp mb-4" src="{{ url_for('static', filename='images/dp/default.png') }}">
+                            <div class="shadow mb-3 dp" data-toggle="modal" data-target="#UploadModal" style="background-image: url({{ image if image else url_for('static', filename='images/dp/default.png') }});">
+                                <div class="text-white db-popup d-none">
+                                    Change Profile Photo
+                                </div>
+                            </div>
+
+                            {% if image %}
+                                <button class="btn btn-danger btn-block mb-4" type="submit" name="remove" value="dp">
+                                    Remove Profile Photo
+                                </button>
+                            {% endif %}
 
                             <div class="form-label-group text-left">
                                 <input id="name" class="form-control{{ ' is-invalid' if errors['name'] or errors['all'] }}" type="text" placeholder="Name" name="name" value="{{ name or g.user['name'] }}" />
@@ -100,4 +110,35 @@
             </div>
         </form>
     </section>
+{% endblock %}
+
+{% block modal %}
+<div id="UploadModal" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content acrylic-80">
+            <div class="modal-header">
+                <h4 class="text-primary">Upload Profile Photo</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <p class="small text-center">
+                    It is recommended to upload a square image at 150 x 150.<br />
+                    You are allowed to upload a file size of up to 2mb.<br />
+                    Only .png, .jpg and .jpeg file types are allowed.
+                </p>
+
+                <div id="DragDropArea"></div>
+
+                <form id="UploadForm" method="post" enctype="multipart/form-data">
+                    <input class="d-none" accept="image/png, image/jpg, image/jpeg" type="file" name="file" />
+                </form>
+                <div class="feedback small text-danger text-center mt-2 d-none"></div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

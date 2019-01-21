@@ -26,18 +26,77 @@
   animation-name: fadeOut;
 }
 
+@keyframes flipInX {
+  from {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0;
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    animation-timing-function: ease-in;
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(1, 0, 0, 10deg);
+    opacity: 1;
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -5deg);
+  }
+
+  to {
+    transform: perspective(400px);
+  }
+}
+
+.flipInX {
+  backface-visibility: visible !important;
+  animation-name: flipInX;
+}
+
+@keyframes flipOutX {
+  from {
+    transform: perspective(400px);
+  }
+
+  30% {
+    transform: perspective(400px) rotate3d(1, 0, 0, -20deg);
+    opacity: 1;
+  }
+
+  to {
+    transform: perspective(400px) rotate3d(1, 0, 0, 90deg);
+    opacity: 0;
+  }
+}
+
+.flipOutX {
+  animation-duration: 0.75s;
+  animation-name: flipOutX;
+  backface-visibility: visible !important;
+}
+
 .fadeIn,
-.fadeOut {
+.fadeOut,
+.flipInX,
+.flipOutX {
   animation-duration: 1s;
   animation-fill-mode: both;
 }
 
 .fadeIn.short,
-.fadeOut.short {
+.fadeOut.short,
+.flipInX.short,
+.flipOutX.short {
   animation-duration: 0.5s;
 }
 
 .fadeIn.shortest,
-.fadeOut.shortest{
+.fadeOut.shortest,
+.flipInX.shortest,
+.flipOutX.shortest {
   animation-duration: 0.1s;
 }
