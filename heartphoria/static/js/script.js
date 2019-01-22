@@ -13,6 +13,28 @@ let animationEnd = (function(el) {
         }
 })(document.createElement("fakeelement"));
 
+/* Scrolling Nav */
+$(window).scroll(function() {
+    let focus = $('nav');
+
+    if (focus.offset().top > 100) {
+        focus.removeClass('navbar-light bg-light py-3');
+        focus.addClass('navbar-dark bg-gradient');
+
+        let btnFocus = $('nav .btn-outline-success');
+        btnFocus.removeClass('btn-outline-success');
+        btnFocus.addClass('btn-success')
+    }
+    else {
+        focus.removeClass('navbar-dark bg-gradient');
+        focus.addClass('navbar-light bg-light py-3');
+
+        let btnFocus = $('nav .btn-success');
+        btnFocus.removeClass('btn-success');
+        btnFocus.addClass('btn-outline-success');
+    }
+});
+
 /* HomeSection */
 $(document).on('click', '#HomeSection #WeatherDetailsToggle', function () {
     let btnFocus = $(this);

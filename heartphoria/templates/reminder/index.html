@@ -3,14 +3,14 @@
 {% block content %}
     <section id="ReminderSection">
         <div class="card acrylic-60 shadow-lg">
-            <div class="card-body">
+            <div class="card-body pb-0">
                 <h4 class="pb-3 text-center text-primary">Medication Reminder</h4>
 
                 <button id="ReminderToggle" class="btn btn-primary btn-block shadow mb-4" data-toggle="collapse" href="#ReminderForm">
-                    New Medication Reminder
+                    {{ 'Hide New' if errors else 'New' }} Medication Reminder
                 </button>
 
-                <form id="ReminderForm" class="text-left collapse" method="post" novalidate>
+                <form id="ReminderForm" class="text-left collapse{{ ' show' if errors }}" method="post" novalidate>
                     <div class="form-label-group text-left">
                         <input id="medication" class="form-control{{ ' is-invalid' if errors['medication'] }}" type="text" placeholder="Medication" name="medication"{% if medication %} value="{{ medication }}"{% endif %} />
                         <label for="medication">Medication</label>
@@ -39,7 +39,7 @@
                 </form>
 
                 {% if reminders %}
-                    <table class="table table-striped">
+                    <table class="table table-striped mb-0">
                         <thead>
                             <tr>
                                 <th scope="col">Time</th>
@@ -58,7 +58,9 @@
                         </tbody>
                     </table>
                 {% else %}
-                     <h6 class="text-center">You do not have any Medication Reminder Yet.</h6>
+                     <h6 class="text-center pb-2">
+                         You do not have any Medication Reminder Yet.
+                     </h6>
                 {% endif %}
             </div>
         </div>

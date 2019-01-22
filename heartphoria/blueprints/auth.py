@@ -7,8 +7,9 @@ import requests
 from flask import Blueprint, g, redirect, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
+from heartphoria import db
+from heartphoria.models import User
 from heartphoria.mail import send_mail
-from heartphoria.db import get_db
 
 blueprint = Blueprint('auth', __name__)
 
@@ -25,37 +26,36 @@ def signup():
         password = request.form.get('password')
         confirm = request.form.get('confirm')
 
-        db = get_db()
-
         if not name:
             errors['name'] = 'Name is required.'
         elif not re.match(r'[a-zA-Z]+(?:\s[a-zA-Z]+)*$', name):
-            errors['name'] = 'Name is invalid.'
+            errors['name'] = 'Name is invalid'
 
         if not email:
             errors['email'] = 'Email is required.'
         elif not re.match(r"[a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$", email):
             errors['email'] = 'Email is invalid.'
-        elif db.execute('SELECT id FROM user WHERE email = ?', [email]).fetchone() is not None:
-            errors['email'] = email + ' already exists.'
+        elif User.query.filter_by(email=email.lower()).first() is not None:
+            errors['email'] = email + ' already exists'
 
         if not password:
             errors['password'] = 'Password is required.'
         elif not re.match(r'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$', password):
-            errors['password'] = 'Password is invalid.'
+            errors['password'] = 'Password is invalid'
         elif not confirm:
-            errors['confirm'] = 'Please re-enter password for confirmation.'
+            errors['confirm'] = 'Please re-enter password for confirmation'
         elif not password == confirm:
-            errors['confirm'] = 'Passwords do not match.'
+            errors['confirm'] = 'Passwords do not match'
 
         if not errors:
-            db.execute('INSERT INTO user (email, password, name, role) VALUES (?, ?, ?, ?)', [email.lower(), generate_password_hash(password), name, 'user'])
-            db.commit()
+            user = User(email=email.lower(), password=generate_password_hash(password), name=name, role='user')
+            db.session.add(user)
+            db.session.commit()
 
             send_mail(
                 email,
                 '[Heartphoria] Sign Up Successful',
-                render_template('email/signup.html', name=name, email=email, password=password)
+                render_template('email/signup.html', name=name, email=email.lower(), password=password)
             )
 
             return redirect(url_for('.login'))
@@ -72,21 +72,19 @@ def login():
         email = request.form.get('email')
         password = request.form.get('password')
 
-        db = get_db()
-
         if not email:
-            errors['email'] = 'Email is required.'
+            errors['email'] = 'Email is required'
         else:
-            user = db.execute('SELECT * FROM user WHERE email = ?', [email.lower()]).fetchone()
+            user = User.query.filter_by(email=email.lower()).first()
 
             if user is None:
-                errors['email'] = email + ' does not exist.'
-            elif not check_password_hash(user['password'], password):
-                errors['password'] = 'Password is incorrect.'
+                errors['email'] = email + ' does not exist'
+            elif not check_password_hash(user.password, password):
+                errors['password'] = 'Password is incorrect'
 
         if not errors:
             session.clear()
-            session['user_id'] = user['id']
+            session['user_id'] = user.id
 
             return redirect(url_for('general.index'))
 
@@ -98,8 +96,6 @@ def forgot():
     email = None
     errors = {}
 
-    db = get_db()
-
     if request.method == 'POST':
         link = None
         email = request.form.get('email')
@@ -107,20 +103,22 @@ def forgot():
         if not email:
             errors['email'] = 'Email is required'
         else:
-            user = db.execute('SELECT * FROM user WHERE email = ?', [email.lower()]).fetchone()
+            user = User.query.filter_by(email=email.lower()).first()
 
             if user is None:
-                errors['email'] = email + ' is not registered.'
+                errors['email'] = email + ' is not registered'
             else:
                 fcode = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(8))
 
-                db.execute('UPDATE user SET fcode = ? WHERE id = ?', (fcode, user['id']))
-                db.commit()
+                user.fcode = fcode
+                db.session.commit()
 
-                if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
-                    link = 'https://heartphoria.ap.ngrok.io/change/' + str(user['id']) + '/' + fcode
-                else:
-                    link = request.url_root + 'change/' + str(user['id']) + '/' + fcode
+                try:
+                    if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
+                        link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
+                except requests.ConnectionError:
+                    if link is None:
+                        link = request.url_root + 'change/' + str(user.id) + '/' + fcode
 
                 send_mail(
                     email,
@@ -136,25 +134,26 @@ def forgot():
 @blueprint.route('/forgot/<int:user_id>')
 def resend_forgot(user_id):
     link = None
-    db = get_db()
 
-    user = db.execute('SELECT * FROM user WHERE id = ?', [user_id]).fetchone()
+    user = User.query.filter_by(id=user_id).first()
 
     if user is None:
         return redirect(url_for('auth.forgot'))
     else:
         fcode = ''.join(random.SystemRandom().choice(string.ascii_lowercase + string.digits) for _ in range(8))
 
-        db.execute('UPDATE user SET fcode = ? WHERE id = ?', [fcode, user['id']])
-        db.commit()
+        user.fcode = fcode
+        db.session.commit()
 
-        if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
-            link = 'https://heartphoria.ap.ngrok.io/change/' + str(user['id']) + '/' + fcode
-        else:
-            link = request.url_root + 'change/' + str(user['id']) + '/' + fcode
+        try:
+            if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
+                link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
+        except requests.ConnectionError:
+            if link is None:
+                link = request.url_root + 'change/' + str(user.id) + '/' + fcode
 
         send_mail(
-            user['email'],
+            user.email,
             '[Heartphoria] Forgot Password',
             render_template('email/forgot.html', link=link)
         )
@@ -168,9 +167,7 @@ def change(user_id, fcode):
     confirm = None
     errors = {}
 
-    db = get_db()
-
-    user = db.execute('SELECT * FROM user WHERE id = ? AND fcode = ?', [user_id, fcode]).fetchone()
+    user = User.query.filter_by(id=user_id, fcode=fcode).first()
 
     if user is None:
         return render_template('auth/change_error.html', user_id=user_id)
@@ -180,20 +177,21 @@ def change(user_id, fcode):
         confirm = request.form.get('confirm')
 
         if not password:
-            errors['password'] = 'Password is required.'
+            errors['password'] = 'Password is required'
         elif not re.match(r'(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).{8,}$', password):
-            errors['password'] = 'Password is invalid.'
+            errors['password'] = 'Password is invalid'
         elif not confirm:
-            errors['confirm'] = 'Please re-enter password for confirmation.'
+            errors['confirm'] = 'Please re-enter password for confirmation'
         elif not password == confirm:
-            errors['confirm'] = 'Passwords do not match.'
+            errors['confirm'] = 'Passwords do not match'
 
         if not errors:
-            db.execute('UPDATE user SET password = ?, fcode = ?', [password, ''])
-            db.commit()
+            user.password = generate_password_hash(password)
+            user.fcode = None
+            db.session.commit()
 
             send_mail(
-                user['email'],
+                user.email,
                 '[Heartphoria] Password Changed',
                 render_template('email/change.html', password=password)
             )
@@ -210,7 +208,15 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute('SELECT * FROM user WHERE id = ?', [user_id]).fetchone()
+        user = User.query.filter_by(id=user_id).first()
+
+        if user:
+            user = user.__dict__
+
+            if '_sa_instance_state' in user:
+                del user['_sa_instance_state']
+
+            g.user = user
 
 
 @blueprint.route('/logout')

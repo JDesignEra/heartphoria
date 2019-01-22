@@ -3,11 +3,11 @@
 {% block content %}
     <section id="HistorySection">
         <div class="card acrylic-60 shadow-lg">
-            <div class="card-body">
+            <div class="card-body pb-0">
                 <h4 class="pb-3 text-center text-primary">Medical History</h4>
 
                 <button id="HistoryToggle" class="btn btn-primary btn-block shadow mb-4" data-toggle="collapse" href="#HistoryForm">
-                    New Medical History
+                    {{ 'Hide New' if errors else 'New' }} Medical History
                 </button>
                 <form id="HistoryForm" class="text-left collapse" method="post" novalidate>
                     <div class="form-label-group text-left">
@@ -30,7 +30,7 @@
                 </form>
 
                 {% if histories %}
-                    <table class="table table-striped">
+                    <table class="table table-striped mb-0">
                         <thead>
                             <tr>
                                 <th scope="col">Date</th>
@@ -47,7 +47,9 @@
                         </tbody>
                     </table>
                 {% else %}
-                     <h6 class="text-center">You do not have any Medical History Yet.</h6>
+                     <h6 class="text-center pb-2">
+                         You do not have any Medical History Yet.
+                     </h6>
                 {% endif %}
             </div>
         </div>

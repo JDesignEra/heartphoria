@@ -1,7 +1,10 @@
+from datetime import datetime
+
 from flask import Blueprint, g, render_template, request
 
+from heartphoria import db
+from heartphoria.models import History
 from heartphoria.blueprints.auth import login_required
-from heartphoria.db import get_db
 
 blueprint = Blueprint('history', __name__, url_prefix='/history')
 
@@ -12,8 +15,6 @@ def index():
     date = None
     description = None
     errors = {}
-
-    db = get_db()
 
     if request.method == 'POST':
         date = request.form.get('date')
@@ -26,10 +27,10 @@ def index():
             errors['description'] = 'Description is required.'
 
         if not errors:
-            db.execute('INSERT INTO history (user_id, date, description) VALUES (?, ?, ?)',
-                       [g.user['id'], date, description])
-            db.commit()
+            history = History(user_id=g.user['id'], date=datetime.strptime(date, '%Y-%m-%d').date(), description=description)
+            db.session.add(history)
+            db.session.commit()
 
-    histories = db.execute('SELECT * FROM history WHERE user_id = ? ORDER BY date DESC', [g.user['id']]).fetchall()
+    histories = History.query.filter_by(user_id=g.user['id']).order_by(History.date.desc()).all()
 
     return render_template('history/index.html', title='Medical History', date=date, description=description, errors=errors, histories=histories)

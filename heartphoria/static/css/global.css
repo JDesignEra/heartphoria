@@ -22,6 +22,11 @@ main.home {
     -moz-transition: all 0.35s ease-in-out;
     -o-transition: all 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
+    box-shadow: 0 1rem 1.5rem rgba(0,0,0,.275) !important;
+}
+
+.navbar.bg-gradient {
+    background: linear-gradient(145deg, #bb0564, #cb8802);
 }
 
 .navbar .container-fluid {
@@ -40,6 +45,10 @@ footer .brand-logo {
     -moz-transition: all 0.35s ease-in-out;
     -o-transition: all 0.35s ease-in-out;
     transition: all 0.35s ease-in-out;
+}
+
+.navbar.bg-gradient .brand-logo {
+    background-image: url("../images/logo/heartphoria_white.png");
 }
 
 .navbar .navbar-toggler {
@@ -67,6 +76,11 @@ footer .brand-logo {
 #ProfileDropdown .dropdown-menu #LogoutDropdown.dropdown-item:hover {
     color: #dc3545;
     background-color: #fae3e5;
+}
+
+/* Footer */
+footer {
+    box-shadow: 0 -.5rem 1rem rgba(0,0,0,.275) !important;
 }
 
 /* Profile & Edit Profile */
@@ -248,7 +262,7 @@ footer .brand-logo {
 
 /* date & time input */
 .form-label-group input[type='date']::-webkit-calendar-picker-indicator {
-    margin-top: calc(-26px / 2);
+    margin-left: 10px;
     width: 0.8rem;
     height: 0.8rem;
 }
@@ -319,16 +333,17 @@ footer .brand-logo {
 .acrylic .table td,
 .acrylic-60 .table th,
 .acrylic-60 .table td {
-    border-top: 1px solid #bb0564;
+    border-top: 1px solid rgba(187, 5, 100, .35);
 }
 
 .acrylic .table thead th,
 .acrylic-60 .table thead th {
-    border-bottom: 2px solid #bb0564;
+    border-bottom: 2px solid rgba(187, 5, 100, .35);
 }
 
+.acrylic hr,
 .acrylic-60 hr {
-    border-top: 1px solid #bb0564;
+    border-top: 1px solid rgba(187, 5, 100, .35);
 }
 
 .acrylic .card-header,

@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS user (
 
 CREATE TABLE IF NOT EXISTS reminder (
     id                    INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id               INTEGER REFERENCES user ON DELETE CASCADE,
+    user_id               INTEGER NOT NULL REFERENCES user ON DELETE CASCADE,
     time                  TIME NOT NULL,
     medication            TEXT NOT NULL,
     quantity              TEXT
@@ -26,14 +26,14 @@ CREATE TABLE IF NOT EXISTS reminder (
 
 CREATE TABLE IF NOT EXISTS appointment (
     id                    INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id               INTEGER REFERENCES user ON DELETE CASCADE,
+    user_id               INTEGER NOT NULL REFERENCES user ON DELETE CASCADE,
     date_time             TIMESTAMP NOT NULL,
     location              TEXT NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS history (
     id                    INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id               INTEGER REFERENCES user ON DELETE CASCADE,
+    user_id               INTEGER NOT NULL REFERENCES user ON DELETE CASCADE,
     date                  DATE NOT NULL,
     description           TEXT NOT NULL
 );

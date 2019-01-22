@@ -3,13 +3,13 @@
 {% block content %}
     <section id="AppointmentSection">
         <div class="card acrylic-60 shadow-lg">
-            <div class="card-body">
+            <div class="card-body pb-0">
                 <h4 class="pb-3 text-center text-primary">Medical Appointment</h4>
 
                 <button id="AppointmentToggle" class="btn btn-primary shadow btn-block mb-4" data-toggle="collapse" href="#AppointmentForm">
-                    New Medical Appointment
+                    {{ 'Hide New' if errors else 'New' }} Medical Appointment
                 </button>
-                <form id="AppointmentForm" class="text-left collapse" method="post" novalidate>
+                <form id="AppointmentForm" class="text-left collapse{{ ' show' if errors }}" method="post" novalidate>
                     <div class="form-label-group text-left">
                         <input id="location" class="form-control{{ ' is-invalid' if errors['location'] }}" type="text" placeholder="Hospital / Clinic" name="location"{% if location %} value="{{ location }}"{% endif %} />
                         <label for="location">Hospital / Clinic</label>
@@ -38,7 +38,7 @@
                 </form>
 
                 {% if appointments %}
-                    <table class="table table-striped">
+                    <table class="table table-striped mb-0">
                         <thead>
                             <tr>
                                 <th scope="col">Date</th>
@@ -57,7 +57,9 @@
                         </tbody>
                     </table>
                 {% else %}
-                    <h6 class="text-center">You do not have any Medical Appointment Yet.</h6>
+                    <h6 class="text-center pb-2">
+                        You do not have any Medical Appointment Yet.
+                    </h6>
                 {% endif %}
             </div>
         </div>

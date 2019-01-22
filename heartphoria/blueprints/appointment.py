@@ -2,8 +2,9 @@ from datetime import datetime
 
 from flask import Blueprint, g, redirect, render_template, request, url_for
 
+from heartphoria import db
+from heartphoria.models import Appointment
 from heartphoria.blueprints.auth import login_required
-from heartphoria.db import get_db
 
 blueprint = Blueprint('appointment', __name__, url_prefix='/appointment')
 
@@ -15,8 +16,6 @@ def index():
     time = None
     location = None
     errors = {}
-
-    db = get_db()
 
     if request.method == 'POST':
         date = request.form.get('date')
@@ -36,11 +35,12 @@ def index():
             errors['location'] = 'Location is required.'
 
         if not errors:
-            db.execute('INSERT INTO appointment (user_id, date_time, location) VALUES (?, ?, ?)', [g.user['id'], date_time, location])
-            db.commit()
+            appointment = Appointment(user_id=g.user['id'], date_time=date_time, location=location)
+            db.session.add(appointment)
+            db.session.commit()
 
             return redirect(url_for('.index'))
 
-    appointments = db.execute('SELECT * FROM appointment WHERE user_id = ? ORDER BY date_time DESC', [g.user['id']]).fetchall()
-
+    appointments = Appointment.query.filter_by(user_id=g.user['id']).order_by(Appointment.date_time.desc()).all()
+    
     return render_template('appointment/index.html', date=date, time=time, location=location, errors=errors, appointments=appointments)
