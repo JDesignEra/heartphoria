@@ -50,7 +50,7 @@ Frameworks / Libraries / APIs / Languages
 ------
 * [Python 3.6.0](https://www.python.org/)
 * [Flask 1.0.2](http://flask.pocoo.org/)
-* [Flask-SQLAlchemy](http://flask-sqlalchemy.pocoo.org)
+* [Flask-SQLAlchemy 2.3.2](http://flask-sqlalchemy.pocoo.org)
 * [requests 2.21.0](https://github.com/requests/requests/)
 * [yagmail 0.11.214](https://github.com/kootenpv/yagmail)
 * [Celery 4.2.0](http://docs.celeryproject.org/en/latest/index.html) with [RabbitMQ](https://www.rabbitmq.com/)
