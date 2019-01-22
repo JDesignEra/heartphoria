@@ -34,8 +34,8 @@ Run ***heartphoria/heartphoria/\_\_init\_\_.py*** as Flask Server or alternative
 as Celery has not updated their library to be compatible with Python 3.7 yet.
 If you are using Python 3.7 while running celery you will encounter a keyword error for **async***.</small>
 
-1. Run ***run_rabbitmq.bat***, you can do so in CMD or your IDE's Terminal.
-2. In ***heartphoria/heartphoria/\_\_init\_\_.py*** change { **broker_url** } and { **result_backend** }.
+1. In ***heartphoria/heartphoria/\_\_init\_\_.py*** change { **broker_url** } and { **result_backend** }.
+2. Run ***run_rabbitmq.bat***, you can do so in CMD or your IDE's Terminal.
 3. Run ***run_celery_worker.bat***, you can do so in CMD or your IDE's Terminal.
 4. Run ***run_celery_beat.bat***, you can do so in CMD or your IDE's Terminal.
 
