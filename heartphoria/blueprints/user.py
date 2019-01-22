@@ -24,8 +24,8 @@ def index(user_id):
         return redirect(url_for('general.index'))
 
     try:
-        if requests.get(request.url_root + 'static/images/dp/%s.png' %g.user['id']).status_code == 200:
-            image = url_for('static', filename='images/dp/%s.png' %g.user['id']) + '?v=%s' % datetime.now().time()
+        if requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id']).status_code == 200:
+            image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
         pass
 
@@ -63,7 +63,7 @@ def edit():
     errors = {}
 
     try:
-        if requests.get(request.url_root + 'static/images/dp/%s.png' %g.user['id']).status_code == 200:
+        if requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id']).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
         pass
@@ -133,7 +133,12 @@ def edit():
                     data['password'] = generate_password_hash(password)
 
             if not errors:
-                if (not name or name == g.user['name']) and (not gender or gender == g.user['gender']) and (not dob or dob == str(g.user['dob'])) and (not height or height == str(g.user['height'])) and (not weight or weight == str(g.user['weight'])) and (email == g.user['email']):
+                if (not name or name == g.user['name']) and \
+                        (not gender or gender == g.user['gender']) and \
+                        (not dob or dob == str(g.user['dob'])) and \
+                        (not height or height == str(g.user['height'])) and \
+                        (not weight or weight == str(g.user['weight'])) and \
+                        (email == g.user['email']):
                     errors['all'] = 'Nothing to update'
                 else:
                     if User.query.filter_by(id=g.user['id']).first() is not None:

@@ -14,6 +14,7 @@ blueprint = Blueprint('appointment', __name__, url_prefix='/appointment')
 def index():
     date = None
     time = None
+    date_time = None
     location = None
     errors = {}
 

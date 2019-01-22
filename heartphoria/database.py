@@ -45,4 +45,3 @@ def close_db(e=None):
 
 def convert_time(s):
     return datetime.strptime(s.decode('utf-8'), '%H:%M:%S').time()
-

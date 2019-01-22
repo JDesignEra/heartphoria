@@ -7,19 +7,19 @@ from heartphoria.models import User
 from heartphoria.mail import mail
 
 
-def make_celery(app):
-    celery = Celery(app.import_name, backend=app.config['result_backend'], broker=app.config['broker_url'])
-    celery.conf.update(app.config)
-    TaskBase = celery.Task
+def make_celery(application):
+    c = Celery(app.import_name, backend=app.config['result_backend'], broker=app.config['broker_url'])
+    c.conf.update(app.config)
+    task_base = c.Task
 
-    class ContextTask(TaskBase):
+    class ContextTask(task_base):
         abstract = True
 
         def __call__(self, *args, **kwargs):
-            with app.app_context():
-                return TaskBase.__call__(self, *args, **kwargs)
-    celery.Task = ContextTask
-    return celery
+            with application.app_context():
+                return task_base.__call__(self, *args, **kwargs)
+    c.Task = ContextTask
+    return c
 
 
 celery = make_celery(app)
@@ -53,6 +53,7 @@ def periodic_tasks(sender, **kwargs):
 @celery.task()
 def celery_send_mail(to, subject, content):
     with app.app_context():
+        print('Celery Sending Mail...')
         mail(to, subject, content)
 
 

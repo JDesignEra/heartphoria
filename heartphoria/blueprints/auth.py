@@ -163,8 +163,6 @@ def resend_forgot(user_id):
 
 @blueprint.route('/change/<int:user_id>/<string:fcode>', methods=['GET', 'POST'])
 def change(user_id, fcode):
-    password = None
-    confirm = None
     errors = {}
 
     user = User.query.filter_by(id=user_id, fcode=fcode).first()
