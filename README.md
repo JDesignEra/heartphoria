@@ -2,17 +2,17 @@
 
 Initial Setup
 ------
-##### Install Required Modules / Libraries
+#### Install Required Modules / Libraries
 ```cmd
 pip install -r requirements.txt
 ```
 <br>
 
-##### Initialize / Create heartphoria.sqlite if it does not exist:
+#### Initialize / Create heartphoria.sqlite if it does not exist:
 Run ***init_db.bat***, you can do so in CMD or your IDE's Terminal/
 <br><br>
 
-##### Celery with RabbitMQ (Optional But Recommended)
+#### Celery with RabbitMQ (Optional But Recommended)
 The purpose of Celery is for it's background workers and periodic task.
 The purpose for the background worker's is to mainly to send emails in an ASync way without having to
 wait for the emails to be send out.
@@ -25,11 +25,11 @@ How to Run?
 <small>*Note: If you are running Flask Web Server on an Internet Connection that blocks port 587 (E.g. School Internet), emails will not be send out.*</small>
 <br><br>
 
-#####Running Flask Web Server
+#### Running Flask Web Server
 Run ***heartphoria/heartphoria/\_\_init\_\_.py*** as Flask Server or alternatively with ***run.bat***.
 <br><br>
 
-#####Running RabbitMQ's Server with Celery's Worker and Beat
+#### Running RabbitMQ's Server with Celery's Worker and Beat
 <small>*Note: If you intend to run celery, you will have to be using Pyhon 3.6 or below
 as Celery has not updated their library to be compatible with Python 3.7 yet.
 If you are using Python 3.7 while running celery you will encounter a keyword error for **async***.</small>
