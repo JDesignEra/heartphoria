@@ -9,7 +9,7 @@ pip install -r requirements.txt
 <br>
 
 #### Initialize / Create heartphoria.sqlite if it does not exist:
-Run ***init_db.bat***, you can do so in CMD or your IDE's Terminal/
+Run ***init_db.bat***, you can do so in CMD or your IDE's Terminal.
 <br><br>
 
 #### Celery with RabbitMQ (Optional But Recommended)
