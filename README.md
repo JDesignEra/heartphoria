@@ -17,7 +17,7 @@ The purpose of Celery is for it's background workers and periodic task.
 The purpose for the background worker's is to mainly to send emails in an ASync way without having to
 wait for the emails to be send out.
 As for the periodic task is used to remove all registered account's forgotten password token every 24 hours for security purposes.
-#####[Install RabbitMQ](https://www.rabbitmq.com/download.html).
+#### <a href="https://www.rabbitmq.com/download.html">Install RabbitMQ</a>
 
 
 How to Run?
