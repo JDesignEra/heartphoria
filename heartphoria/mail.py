@@ -1,3 +1,5 @@
+from socket import socket, AF_INET, SOCK_STREAM
+
 import yagmail
 
 
@@ -6,12 +8,15 @@ def __init_mail():
 
 
 def mail(to, subject, contents):
-    yag = __init_mail()
-    yag.send(
-        to=to,
-        subject=subject,
-        contents=str(contents).replace('\n', '')
-    )
+    try:
+        yag = __init_mail()
+        yag.send(
+            to=to,
+            subject=subject,
+            contents=str(contents).replace('\n', '')
+        )
+    except TimeoutError:
+        print('Gmail port  587 is blocked. Email will not be send...')
 
 
 def send_mail(to, subject, contents):
