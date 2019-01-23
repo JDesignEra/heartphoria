@@ -7,7 +7,7 @@ from heartphoria.models import User
 from heartphoria.mail import mail
 
 
-def make_celery(application):
+def __make_celery(application):
     c = Celery(app.import_name, backend=app.config['result_backend'], broker=app.config['broker_url'])
     c.conf.update(app.config)
     task_base = c.Task
@@ -22,7 +22,7 @@ def make_celery(application):
     return c
 
 
-celery = make_celery(app)
+celery = __make_celery(app)
 
 
 def check_celery_worker_status():
@@ -45,9 +45,9 @@ def check_celery_worker_status():
 
 
 @celery.on_after_configure.connect()
-def periodic_tasks(sender, **kwargs):
+def __periodic_tasks(sender, **kwargs):
     # Every 24 Hours
-    sender.add_periodic_task(86400.0, remove_fcode, name='Reset Forgot Password Codes')
+    sender.add_periodic_task(86400.0, __remove_fcode, name='Reset Forgot Password Codes')
 
 
 @celery.task()
@@ -58,7 +58,7 @@ def celery_send_mail(to, subject, content):
 
 
 @celery.task()
-def remove_fcode():
+def __remove_fcode():
     print('Removing All Forgot Password Codes...')
     users = User.query.filter(User.fcode is None or User.fcode != '').all()
 
