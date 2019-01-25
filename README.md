@@ -30,7 +30,7 @@ Run ***heartphoria/heartphoria/\_\_init\_\_.py*** as Flask Server or alternative
 <br><br>
 
 #### Running RabbitMQ's Server with Celery's Worker and Beat (Optional But Recommended)
-<small>*Note: If you intend to run celery, you will have to be using Pyhon 3.6 or below
+<small>*Note: If you intend to run celery, you will have to be using Pyhon 3.6.8 or below
 as Celery has not updated their library to be compatible with Python 3.7 yet.
 If you are using Python 3.7 while running celery you will encounter a keyword error for **async***.</small>
 
@@ -48,7 +48,7 @@ result_backend='rpc://'
 
 Frameworks / Libraries / APIs / Languages
 ------
-* [Python 3.6.0](https://www.python.org/)
+* [Python 3.6.8](https://www.python.org/downloads/release/python-368/)
 * [Flask 1.0.2](http://flask.pocoo.org/)
 * [Flask-SQLAlchemy 2.3.2](http://flask-sqlalchemy.pocoo.org)
 * [requests 2.21.0](https://github.com/requests/requests/)
