@@ -29,7 +29,7 @@ How to Run?
 Run ***heartphoria/heartphoria/\_\_init\_\_.py*** as Flask Server or alternatively with ***run.bat***.
 <br><br>
 
-#### Running RabbitMQ's Server with Celery's Worker and Beat
+#### Running RabbitMQ's Server with Celery's Worker and Beat (Optional)
 <small>*Note: If you intend to run celery, you will have to be using Pyhon 3.6 or below
 as Celery has not updated their library to be compatible with Python 3.7 yet.
 If you are using Python 3.7 while running celery you will encounter a keyword error for **async***.</small>
