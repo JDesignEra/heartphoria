@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from heartphoria import db
 from heartphoria.models import User
-from heartphoria.mail import send_mail
+from heartphoria.mail import Mail
 
 blueprint = Blueprint('auth', __name__)
 
@@ -52,7 +52,7 @@ def signup():
             db.session.add(user)
             db.session.commit()
 
-            send_mail(
+            Mail().send_mail(
                 email,
                 '[Heartphoria] Sign Up Successful',
                 render_template('email/signup.html', name=name, email=email.lower(), password=password)
@@ -120,7 +120,7 @@ def forgot():
                     if link is None:
                         link = request.url_root + 'change/' + str(user.id) + '/' + fcode
 
-                send_mail(
+                Mail().send_mail(
                     email,
                     '[Heartphoria] Forgot Password',
                     render_template('email/forgot.html', link=link)
@@ -152,7 +152,7 @@ def resend_forgot(user_id):
             if link is None:
                 link = request.url_root + 'change/' + str(user.id) + '/' + fcode
 
-        send_mail(
+        Mail().send_mail(
             user.email,
             '[Heartphoria] Forgot Password',
             render_template('email/forgot.html', link=link)
@@ -188,7 +188,7 @@ def change(user_id, fcode):
             user.fcode = None
             db.session.commit()
 
-            send_mail(
+            Mail().send_mail(
                 user.email,
                 '[Heartphoria] Password Changed',
                 render_template('email/change.html', password=password)

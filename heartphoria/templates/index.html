@@ -161,13 +161,21 @@
 
                             {% set wind_direction_localized = {
                                 'N': 'North',
+                                'NE': 'North East',
+                                'NW': 'North West',
                                 'NNE': 'North North-East',
                                 'NNW': 'North North-West',
+                                'S': 'South',
+                                'SE': 'South East',
+                                'SW': 'South West',
                                 'SSE': 'South South-East',
                                 'SSW': 'South South-West',
-                                'SSW': 'South South-West',
                                 'E': 'East',
-                                'W': 'West'
+                                'ENE': 'East North-East',
+                                'ESE': 'East SouthEast',
+                                'W': 'West',
+                                'WNW': 'West North-West',
+                                'WSW': 'West SouthWest'
                             } %}
 
                             <h6 class="text-muted">{{ wind_direction_localized[weather['wind_direction_text']] }}</h6>

@@ -1,7 +1,7 @@
 import os
 from datetime import datetime
 
-from flask import Flask
+from flask import Flask, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.utils import find_modules, import_string
 
@@ -42,3 +42,10 @@ for name in find_modules('heartphoria.blueprints'):
     mod = import_string(name)
     if hasattr(mod, 'blueprint'):
         app.register_blueprint(mod.blueprint)
+
+
+@app.before_request
+def http_to_https():
+    if request.url.startswith('http://heartphoria.ap.ngrok.io'):
+        url = request.url.replace('http://', 'https://', 1)
+        return redirect(url, 301)

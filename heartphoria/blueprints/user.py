@@ -9,7 +9,7 @@ from werkzeug.security import generate_password_hash
 from heartphoria import app
 from heartphoria import db
 from heartphoria.models import User, Appointment, Reminder, History
-from heartphoria.mail import send_mail
+from heartphoria.mail import Mail
 from heartphoria.blueprints.auth import login_required
 
 blueprint = Blueprint('user', __name__, url_prefix='/user')
@@ -145,7 +145,7 @@ def edit():
                         User.query.filter_by(id=g.user['id']).update(data)
                         db.session.commit()
 
-                    send_mail(
+                    Mail().send_mail(
                         [g.user['email'], email] if email else g.user['email'],
                         '[Heartphoria] Account Details Changed',
                         render_template('email/edit.html', name=name, gender=gender, dob=dob, height=height, weight=weight, email=email, password=password)

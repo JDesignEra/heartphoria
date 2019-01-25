@@ -4,10 +4,10 @@ from celery import Celery
 from heartphoria import app
 from heartphoria import db
 from heartphoria.models import User
-from heartphoria.mail import mail
+from heartphoria.mail import Mail
 
 
-def __make_celery(application):
+def make_celery(application):
     c = Celery(app.import_name, backend=app.config['result_backend'], broker=app.config['broker_url'])
     c.conf.update(app.config)
     task_base = c.Task
@@ -22,7 +22,7 @@ def __make_celery(application):
     return c
 
 
-celery = __make_celery(app)
+celery = make_celery(app)
 
 
 def check_celery_worker_status():
@@ -54,12 +54,12 @@ def __periodic_tasks(sender, **kwargs):
 def celery_send_mail(to, subject, content):
     with app.app_context():
         print('Celery Sending Mail...')
-        mail(to, subject, content)
+        Mail().mail(to, subject, content)
 
 
 @celery.task()
 def __remove_fcode():
-    print('Removing All Forgot Password Codes...')
+    print('Removing All Forgot Password Tokens...')
     users = User.query.filter(User.fcode is None or User.fcode != '').all()
 
     for user in users:
