@@ -28,7 +28,7 @@ def index():
 
         while flag:
             try:
-                r = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json', params=params)
+                r = requests.get('https://maps.googleapis.com/maps/api/place/textsearch/json', params=params, timeout=1)
                 results = r.json()
 
                 if 'next_page_token' not in results:

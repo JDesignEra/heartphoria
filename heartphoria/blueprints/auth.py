@@ -113,8 +113,9 @@ def forgot():
                 user.fcode = fcode
                 db.session.commit()
 
+                # Determines if ngrok is being used.
                 try:
-                    if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
+                    if requests.get('https://heartphoria.ap.ngrok.io/', timeout=0.5).status_code == 200:
                         link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
                 except requests.ConnectionError:
                     if link is None:
@@ -145,8 +146,9 @@ def resend_forgot(user_id):
         user.fcode = fcode
         db.session.commit()
 
+        # Determines if ngrok is being used.
         try:
-            if requests.get('https://heartphoria.ap.ngrok.io/').status_code == 200:
+            if requests.get('https://heartphoria.ap.ngrok.io/', timeout=0.5).status_code == 200:
                 link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
         except requests.ConnectionError:
             if link is None:

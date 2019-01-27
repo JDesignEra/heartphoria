@@ -24,7 +24,9 @@ def index(user_id):
         return redirect(url_for('general.index'))
 
     try:
-        if requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id']).status_code == 200:
+        # Check if users profile picture exists when hosted with ngrok and on local.
+        if requests.get('https://heartphoria.ap.ngrok.io/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
+                requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
         pass
@@ -63,19 +65,22 @@ def edit():
     errors = {}
 
     try:
-        if requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id']).status_code == 200:
+        # Check if users profile picture exists when hosted with ngrok and on local.
+        if requests.get('https://heartphoria.ap.ngrok.io/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
+                requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
         pass
 
     if request.method == 'POST':
+        print(request.files)
         if 'file' in request.files:
             file = request.files['file']
 
             if '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in ['png', 'jpg', 'jpeg']:
                 file.save(os.path.join(app.config['UPLOAD_FOLDER'] + str(g.user['id']) + '.png'))
 
-            return redirect(url_for('.index', user_id=g.user['id']))
+            return redirect(url_for('.edit'))
         elif request.form.get('remove'):
             os.remove(os.path.join(app.config['UPLOAD_FOLDER'] + str(g.user['id']) + '.png'))
 

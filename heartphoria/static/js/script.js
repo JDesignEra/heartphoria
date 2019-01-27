@@ -94,11 +94,11 @@ if ($('#UploadModal').length) {
     });
 
     $(document).on('drop', '#UploadModal #DragDropArea', function(e) {
-        e.preventDefault()
+        e.preventDefault();
 
         $('#UploadModal .feedback').addClass('d-none');
 
-        let uploads = e.originalEvent.dataTransfer.files || e.target.files || e.dataTransfer.files;
+        let uploads = e.originalEvent.dataTransfer.files || (e.dataTransfer && e.dataTransfer.files) || e.target.files;
 
         if (uploads.length > 1) {
             let focus = $('#UploadModal .feedback');
@@ -113,19 +113,8 @@ if ($('#UploadModal').length) {
             $(focus).removeClass('d-none');
         }
         else {
-            let data = new FormData();
-            data.append('file', uploads[0])
-
-            $.ajax({
-                type: 'POST',
-                processData: false,
-                contentType: false,
-                data: data
-            })
-            .done(function() {
-                $('#UploadModal').modal('hide');
-                window.location.href = String(window.location.origin) + '/user/' + user_id;
-            });
+            $('#UploadModal input[name=file]').prop('files', uploads);
+            $('#UploadModal #UploadForm').submit();
         }
     });
 

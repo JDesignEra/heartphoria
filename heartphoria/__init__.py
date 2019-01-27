@@ -1,8 +1,9 @@
 import os
 from datetime import datetime
 
-from flask import Flask, request, redirect
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_sslify import SSLify
 from werkzeug.utils import find_modules, import_string
 
 
@@ -32,6 +33,11 @@ database.init_app()
 
 db = SQLAlchemy(app)
 
+# For redirecting all incoming requests to HTTPS when using ngrok to bypass school's internet filter,
+# ensure FLASK_ENV is in production mode if you are running Flask with ngrok.
+# If serving Flask on a local host (e.g. 127.0.0.1:5000), please ensure that FLASK_ENV is in development mode.
+sslify = SSLify(app)
+
 
 @app.context_processor
 def year():
@@ -42,10 +48,3 @@ for name in find_modules('heartphoria.blueprints'):
     mod = import_string(name)
     if hasattr(mod, 'blueprint'):
         app.register_blueprint(mod.blueprint)
-
-
-@app.before_request
-def http_to_https():
-    if request.url.startswith('http://heartphoria.ap.ngrok.io'):
-        url = request.url.replace('http://', 'https://', 1)
-        return redirect(url, 301)
