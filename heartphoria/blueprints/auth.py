@@ -113,13 +113,19 @@ def forgot():
                 user.fcode = fcode
                 db.session.commit()
 
-                # Determines if ngrok is being used.
+                # Determines if ngrok is up.
                 try:
                     if requests.get('https://heartphoria.ap.ngrok.io/', timeout=0.5).status_code == 200:
+                        print('ngrok is up, using https://heartphoria.ap.ngrok.io URL instead...')
+
                         link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
-                except requests.ConnectionError:
+                except requests.exceptions.ConnectionError:
+                    print('ngrok is not up, using localhost URL instead...')
+
                     if link is None:
                         link = request.url_root + 'change/' + str(user.id) + '/' + fcode
+                except requests.exceptions.RequestException as e:
+                    print(e)
 
                 Mail().send_mail(
                     email,
@@ -146,13 +152,19 @@ def resend_forgot(user_id):
         user.fcode = fcode
         db.session.commit()
 
-        # Determines if ngrok is being used.
+        # Determines if ngrok is up.
         try:
             if requests.get('https://heartphoria.ap.ngrok.io/', timeout=0.5).status_code == 200:
+                print('ngrok is up, using https://heartphoria.ap.ngrok.io URL instead...')
+
                 link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
-        except requests.ConnectionError:
+        except requests.exceptions.ConnectionError:
+            print('ngrok is not up, using localhost URL instead...')
+
             if link is None:
                 link = request.url_root + 'change/' + str(user.id) + '/' + fcode
+        except requests.exceptions.RequestException as e:
+            print(e)
 
         Mail().send_mail(
             user.email,

@@ -53,8 +53,8 @@ def index():
 
                 db.session.commit()
                 sleep(2)    # Google Places API doesn't allow next result to be called instantly.
-            except requests.ConnectionError:
-                print('Google Places API Refuse Connection...')
+            except requests.RequestException as e:
+                print(e)
 
         locations = Hospital.query.order_by(Hospital.name).all()
 

@@ -15,12 +15,12 @@ Run ***init_db.bat***, you can do so in CMD or your IDE's Terminal.
 #### Celery with RabbitMQ (Optional But Recommended)
 <p>The purpose of Celery is for its background workers and periodic task.</p>
 <p>
-    With Celery running, users do not have to wait for the Sign Up or Forgot Password email's to
+    With Celery running, users do not have to wait for the Sign Up or Forgot Password email to
     be sent out before continuing its next task.
-    Emails will be sent out in an Asynchronous method rather than Synchronous method.
+    In other words, emails will be sent out in an ASynchronous way rather than a Synchronous way.
 </p>
 <p>
-    In addition, Celery has a periodic task functionality where it's being used to delete all
+    Also, Celery has a periodic task feature where it's being used to delete all
     user's forgotten password tokens every 24 hours for security purpose.
 </p>
  
@@ -32,13 +32,13 @@ How to Run?
 #### Running Flask Web Server
 *<small>
     <p>
-        Note: If you are running Flask Web Server on an Internet Connection that blocks port 587 (E.g. School Internet),
+        Note: If you are hosting the Flask Web Server on an internet connection that blocks port 587 (E.g. School Internet),
         emails will not be sent out.
         Additionally, you may experience slight delays on functionality that sends out an email (e.g. Sign Up and Forgot Password).
     </p>
 </small>*
 
-##### Pick either option 1 or 2:
+##### Pick ONLY ONE (Either option 1 or 2):
 1. Run ***run.bat***, you can do so in CMD or your IDE's Terminal.
 2. Run ***heartphoria/heartphoria/\_\_init\_\_.py*** and ensure FLASK_ENV is set to development.
 <br><br>
@@ -46,8 +46,8 @@ How to Run?
 #### Running RabbitMQ's Server with Celery's Worker and Beat
 *<small>
     <p>
-        Note: If you intend to run Celery, you will have to be using Python 3.6 or below
-        as Celery has not updated their library to be compatible with Python 3.7 yet.
+        Note: If you intend to run Celery, you will have to be using Python 3.6.8 or below
+        as Celery has not updated their library to be compatible with Python 3.7 as of yet.
         If you are using Python 3.7 while running Celery, you will encounter a keyword error for <b>async</b>.
     </p>
 </small>*
@@ -72,8 +72,9 @@ Frameworks / Libraries / APIs / Languages
 * [Flask-SSLify 0.1.5](https://github.com/kennethreitz/flask-sslify)
 * [Requests (http for humans) 2.21.0](https://github.com/requests/requests/)
 * [yagmail 0.11.214](https://github.com/kootenpv/yagmail)
-* [gevent 1.4.0](https://github.com/gevent/gevent/)
-* [Celery 4.2.0](http://docs.celeryproject.org/en/latest/index.html) with [RabbitMQ](https://www.rabbitmq.com/)
+* [Celery 4.2.0](http://docs.celeryproject.org/en/latest/index.html) with
+    [gevent 1.4.0](https://github.com/gevent/gevent/) and
+    [RabbitMQ](https://www.rabbitmq.com/)
 * [Bootstrap 4.2.1](https://getbootstrap.com/)
 * [FontAwesome Pro 5.5.0](https://fontawesome.com/)
 * [jQuery 3.3.1](https://code.jquery.com/)

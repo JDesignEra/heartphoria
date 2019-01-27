@@ -29,7 +29,9 @@ def index(user_id):
                 requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
-        pass
+        print('User has not uploaded any profile picture...')
+    except requests.exceptions.RequestException as e:
+        print(e)
 
     bmi = {
         'index': None if g.user['weight'] == 0 or g.user['height'] == 0 else round(g.user['weight'] / (g.user['height'] / 100 * g.user['height'] / 100))
@@ -70,7 +72,9 @@ def edit():
                 requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
-        pass
+        print('User has not uploaded any profile picture...')
+    except requests.exceptions.RequestException as e:
+        print(e)
 
     if request.method == 'POST':
         print(request.files)

@@ -56,8 +56,8 @@ def index():
                 Weather.query.filter_by(id=1).update(data)
 
             db.session.commit()
-        except requests.ConnectionError:
-            print('AccuWeather API Refused Connections...')
+        except requests.exceptions.RequestException as e:
+            print(e)
 
     if request.method == 'POST' or g.user and g.user['weight'] and g.user['height']:
         bmi = {
