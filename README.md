@@ -43,7 +43,7 @@ How to Run?
 2. Run ***heartphoria/heartphoria/\_\_init\_\_.py*** and ensure FLASK_ENV is set to development.
 <br><br>
 
-#### Running RabbitMQ's Server with Celery's Worker and Beat
+#### Running RabbitMQ's Server and Celery's Worker and Beat (Optional But Recommended)
 *<small>
     <p>
         Note: If you intend to run Celery, you will have to be using Python 3.6.8 or below
@@ -66,7 +66,7 @@ result_backend='rpc://'
 
 Frameworks / Libraries / APIs / Languages
 ------
-* [Python 3.6.0](https://www.python.org/)
+* [Python 3.6.8](https://www.python.org/)
 * [Flask 1.0.2](http://flask.pocoo.org/)
 * [Flask-SQLAlchemy 2.3.2](http://flask-sqlalchemy.pocoo.org)
 * [Flask-SSLify 0.1.5](https://github.com/kennethreitz/flask-sslify)
