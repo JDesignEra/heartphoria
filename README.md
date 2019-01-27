@@ -40,7 +40,7 @@ How to Run?
 
 ##### Pick ONLY ONE (Either option 1 or 2):
 1. Run ***run.bat***, you can do so in CMD or your IDE's Terminal.
-2. Run ***heartphoria/heartphoria/\_\_init\_\_.py*** and ensure FLASK_ENV is set to development.
+2. Run ***heartphoria/heartphoria/\_\_init\_\_.py*** with your choice of IDE and ensure FLASK_ENV is set to development.
 <br><br>
 
 #### Running RabbitMQ's Server and Celery's Worker and Beat (Optional But Recommended)
