@@ -66,7 +66,7 @@ result_backend='rpc://'
 
 Frameworks / Libraries / APIs / Languages
 ------
-* [Python 3.6.8](https://www.python.org/)
+* [Python 3.6.8](https://www.python.org/downloads/release/python-368/)
 * [Flask 1.0.2](http://flask.pocoo.org/)
 * [Flask-SQLAlchemy 2.3.2](http://flask-sqlalchemy.pocoo.org)
 * [Flask-SSLify 0.1.5](https://github.com/kennethreitz/flask-sslify)
