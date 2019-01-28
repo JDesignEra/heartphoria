@@ -43,7 +43,7 @@ def index():
                 errors['location'] = 'Location is required.'
 
             if not errors:
-                appointment = Appointment(user_id=g.user['id'], date_time=date_time, location=location) #create appointment object with user input values
+                appointment = Appointment(user_id=g.user['id'], date_time=date_time, location=location) #create appointment object with user input value
                 db.session.add(appointment)
                 db.session.commit()
 
