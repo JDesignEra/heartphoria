@@ -4,8 +4,7 @@ from datetime import datetime, timedelta
 import requests
 from flask import Blueprint, render_template
 
-from heartphoria import app
-from heartphoria import db
+from heartphoria import app, db
 from heartphoria.models import Hospital
 
 blueprint = Blueprint('hospital', __name__, url_prefix='/hospital')

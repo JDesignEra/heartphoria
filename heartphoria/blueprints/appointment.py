@@ -1,8 +1,8 @@
 from datetime import datetime
 
-from flask import Blueprint, g, redirect, render_template, request, url_for
+from flask import Blueprint, g, render_template, request, url_for, redirect
 
-from heartphoria import db
+from heartphoria import db, redirect
 from heartphoria.models import Appointment, Hospital
 from heartphoria.blueprints.auth import login_required
 

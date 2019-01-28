@@ -3,8 +3,7 @@ from datetime import datetime, timedelta
 import requests
 from flask import Blueprint, g, render_template, request
 
-from heartphoria import app
-from heartphoria import db
+from heartphoria import app, db
 from heartphoria.models import Weather, Reminder, Appointment
 
 blueprint = Blueprint('general', __name__)

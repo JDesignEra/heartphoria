@@ -4,10 +4,10 @@ import random
 import string
 
 import requests
-from flask import Blueprint, g, redirect, render_template, request, session, url_for
+from flask import Blueprint, g, render_template, request, session, url_for
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from heartphoria import db
+from heartphoria import db, ngrok_url, redirect
 from heartphoria.models import User
 from heartphoria.mail import Mail
 
@@ -115,10 +115,10 @@ def forgot():
 
                 # Determines if ngrok is up.
                 try:
-                    if requests.get('https://heartphoria.ap.ngrok.io/', timeout=0.5).status_code == 200:
-                        print('ngrok is up, using https://heartphoria.ap.ngrok.io URL instead...')
+                    if requests.get(ngrok_url, timeout=0.5).status_code == 200:
+                        print('ngrok is up, using %s URL instead...' % ngrok_url)
 
-                        link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
+                        link = ngrok_url + '/change/' + str(user.id) + '/' + fcode
                 except requests.exceptions.ConnectionError:
                     print('ngrok is not up, using localhost URL instead...')
 
@@ -154,10 +154,10 @@ def resend_forgot(user_id):
 
         # Determines if ngrok is up.
         try:
-            if requests.get('https://heartphoria.ap.ngrok.io/', timeout=0.5).status_code == 200:
-                print('ngrok is up, using https://heartphoria.ap.ngrok.io URL instead...')
+            if requests.get(ngrok_url, timeout=0.5).status_code == 200:
+                print('ngrok is up, using %s URL instead...' % ngrok_url)
 
-                link = 'https://heartphoria.ap.ngrok.io/change/' + str(user.id) + '/' + fcode
+                link = ngrok_url + str(user.id) + '/' + fcode
         except requests.exceptions.ConnectionError:
             print('ngrok is not up, using localhost URL instead...')
 

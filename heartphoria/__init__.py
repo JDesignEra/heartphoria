@@ -1,9 +1,9 @@
 import os
 from datetime import datetime
 
+import requests
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
-from flask_sslify import SSLify
 from werkzeug.utils import find_modules, import_string
 
 
@@ -33,10 +33,23 @@ database.init_app()
 
 db = SQLAlchemy(app)
 
-# For redirecting all incoming requests to HTTPS when using ngrok to bypass school's internet filter,
-# ensure FLASK_ENV is in production mode if you are running Flask with ngrok.
-# If serving Flask on a local host (e.g. 127.0.0.1:5000), please ensure that FLASK_ENV is in development mode.
-sslify = SSLify(app)
+# Change URL accordingly if using ngrok otherwise you may ignore it.
+ngrok_url = 'https://heartphoria.ap.ngrok.io'
+
+
+# Checks if ngrok tunnel is up.
+# If ngrok tunnel is up forced redirect to ngrok domain with https.
+# Bypass school internet non-https filter.
+def redirect(location, code=302, Response=None):
+    import flask
+
+    try:
+        if requests.get(ngrok_url, timeout=0.5).status_code == 200:
+            return flask.redirect(ngrok_url + location, code, Response)
+        else:
+            return flask.redirect(location, code, Response)
+    except requests.exceptions.RequestException as e:
+        print(e)
 
 
 @app.context_processor

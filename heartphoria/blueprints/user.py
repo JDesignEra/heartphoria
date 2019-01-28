@@ -3,11 +3,10 @@ import os
 from datetime import datetime
 
 import requests
-from flask import Blueprint, g, redirect, render_template, request, url_for
+from flask import Blueprint, g, render_template, request, url_for
 from werkzeug.security import generate_password_hash
 
-from heartphoria import app
-from heartphoria import db
+from heartphoria import app, db, ngrok_url, redirect
 from heartphoria.models import User, Appointment, Reminder, History
 from heartphoria.mail import Mail
 from heartphoria.blueprints.auth import login_required
@@ -25,7 +24,7 @@ def index(user_id):
 
     try:
         # Check if users profile picture exists when hosted with ngrok and on local.
-        if requests.get('https://heartphoria.ap.ngrok.io/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
+        if requests.get(ngrok_url + '/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
                 requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
@@ -68,7 +67,7 @@ def edit():
 
     try:
         # Check if users profile picture exists when hosted with ngrok and on local.
-        if requests.get('https://heartphoria.ap.ngrok.io/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
+        if requests.get(ngrok_url + '/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
                 requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
@@ -77,7 +76,6 @@ def edit():
         print(e)
 
     if request.method == 'POST':
-        print(request.files)
         if 'file' in request.files:
             file = request.files['file']
 
