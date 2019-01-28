@@ -30,22 +30,30 @@
                 </form>
 
                 {% if histories %}
-                    <table class="table table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Description</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for history in histories %}
+                    <form method="post" novalidate>
+                        <table class="table table-striped mb-0">
+                            <thead>
                                 <tr>
-                                    <td>{{ history['date'].strftime('%d/%m/%Y') }}</td>
-                                    <td>{{ history['description'] }}</td>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Description</th>
+                                    <th scope="col">Action</th>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {% for history in histories %}
+                                    <tr>
+                                        <td>{{ history['date'].strftime('%d/%m/%Y') }}</td>
+                                        <td>{{ history['description'] }}</td>
+                                        <td>
+                                            <button class="btn btn-danger" type="submit" value="{{ history['id'] }}" name="delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
                 {% else %}
                      <h6 class="text-center pb-2">
                          You do not have any Medical History Yet.

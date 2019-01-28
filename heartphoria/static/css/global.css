@@ -280,6 +280,53 @@ footer {
     margin: 0 !important;
 }
 
+/* typeaheader.js */
+.twitter-typeahead {
+    width: 100%;
+}
+
+.tt-suggestion {
+    padding: 5px;
+    cursor: pointer;
+}
+
+.tt-suggestion.tt-cursor,.tt-suggestion:hover {
+    color: #ffffff;
+    background-color: #bb0564;
+}
+
+.tt-menu {
+    margin-top: 8px;
+    border-radius: .25rem;
+    background-color: transparent;
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+}
+
+.tt-menu::before {
+    filter: blur(10px);
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.tt-menu::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    opacity: .9;
+    border: 0.5px solid #fff;
+    background: #fff;
+    background-image: url('../images/background/acrylic_overlay.png');
+}
+
 /* Acrylic */
 .acrylic,
 .acrylic-60,

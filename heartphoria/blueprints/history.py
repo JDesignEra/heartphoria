@@ -17,19 +17,26 @@ def index():
     errors = {}
 
     if request.method == 'POST':
-        date = request.form.get('date')
-        description = request.form.get('description')
+        delete = request.form.get('delete')
 
-        if not date:
-            errors['date'] = 'Date is required.'
-
-        if not description:
-            errors['description'] = 'Description is required.'
-
-        if not errors:
-            history = History(user_id=g.user['id'], date=datetime.strptime(date, '%Y-%m-%d').date(), description=description)
-            db.session.add(history)
+        if delete:
+            history = History.query.get(delete)
+            db.session.delete(history)
             db.session.commit()
+        else:
+            date = request.form.get('date')
+            description = request.form.get('description')
+
+            if not date:
+                errors['date'] = 'Date is required.'
+
+            if not description:
+                errors['description'] = 'Description is required.'
+
+            if not errors:
+                history = History(user_id=g.user['id'], date=datetime.strptime(date, '%Y-%m-%d').date(), description=description)
+                db.session.add(history)
+                db.session.commit()
 
     histories = History.query.filter_by(user_id=g.user['id']).order_by(History.date.desc()).all()
 

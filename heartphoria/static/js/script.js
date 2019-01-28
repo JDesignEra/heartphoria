@@ -36,52 +36,89 @@ $(window).scroll(function() {
 });
 
 /* HomeSection */
-$(document).on('click', '#HomeSection #WeatherDetailsToggle', function () {
-    let btnFocus = $(this);
+if ($('#HomeSection').length) {
+    $(document).on('click', '#HomeSection #WeatherDetailsToggle', function () {
+        let btnFocus = $(this);
 
-    if (btnFocus.hasClass('collapsed')) {
-        btnFocus.text('Show More Details');
-    }
-    else {
-        btnFocus.text('Hide More Details');
-    }
-});
+        if (btnFocus.hasClass('collapsed')) {
+            btnFocus.text('Show More Details');
+        }
+        else {
+            btnFocus.text('Hide More Details');
+        }
+    });
+}
 
 /* ReminderSection */
-$(document).on('click', '#ReminderSection #ReminderToggle', function() {
-    let btnFocus = $(this);
+if ($('#ReminderSection').length) {
+    $(document).on('click', '#ReminderSection #ReminderToggle', function() {
+        let btnFocus = $(this);
 
-    if (btnFocus.hasClass('collapsed')) {
-        btnFocus.text('New Medication Reminder');
-    }
-    else {
-        btnFocus.text('Hide New Medication Reminder');
-    }
-});
+        if (btnFocus.hasClass('collapsed')) {
+            btnFocus.text('New Medication Reminder');
+        }
+        else {
+            btnFocus.text('Hide New Medication Reminder');
+        }
+    });
+}
 
 /* AppointmentSection */
-$(document).on('click', '#AppointmentSection #AppointmentToggle', function() {
-    let btnFocus = $(this);
+if ($('#AppointmentSection').length) {
+    $(document).on('click', '#AppointmentSection #AppointmentToggle', function() {
+        let btnFocus = $(this);
 
-    if (btnFocus.hasClass('collapsed')) {
-        btnFocus.text('New Medical Appointment');
-    }
-    else {
-        btnFocus.text('Hide New Medical Appointment');
-    }
-});
+        if (btnFocus.hasClass('collapsed')) {
+            btnFocus.text('New Medical Appointment');
+        }
+        else {
+            btnFocus.text('Hide New Medical Appointment');
+        }
+    });
+
+    /* Autcomplete */
+    let substringMatcher = function(strs) {
+        return function findMatches(q, cb) {
+            let matches, substringRegex;
+
+            matches = [];
+
+            substrRegex = new RegExp(q, 'i');
+
+            $.each(strs, function(i, str) {
+                if (substrRegex.test(str)) {
+                    matches.push(str);
+                }
+            });
+
+            cb(matches);
+        };
+    };
+
+    $('input#location').typeahead({
+        hint: true,
+        highlight: true,
+        minLength: 1
+    },
+    {
+        name: 'autocomplete',
+        source: substringMatcher(autocomplete)
+    });
+}
 
 /* HistorySection */
-$(document).on('click', '#HistorySection #HistoryToggle', function() {
-    let btnFocus = $(this);
+if ($('#HistorySection').length) {
+    $(document).on('click', '#HistorySection #HistoryToggle', function() {
+        let btnFocus = $(this);
 
-    if (btnFocus.hasClass('collapsed')) {
-        btnFocus.text('New Medical History');
-    }
-    else {
-        btnFocus.text('Hide New Medical History');
-    }
-});
+        if (btnFocus.hasClass('collapsed')) {
+            btnFocus.text('New Medical History');
+        }
+        else {
+            btnFocus.text('Hide New Medical History');
+        }
+    });
+}
 
 /* EditProfileSection */
 if ($('#UploadModal').length) {

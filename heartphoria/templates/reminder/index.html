@@ -39,24 +39,32 @@
                 </form>
 
                 {% if reminders %}
-                    <table class="table table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">Time</th>
-                                <th scope="col">Medication</th>
-                                <th scope="col">Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for reminder in reminders %}
+                    <form method="post" novalidate>
+                        <table class="table table-striped mb-0">
+                            <thead>
                                 <tr>
-                                    <td>{{ reminder['time'].strftime('%I:%M %p') }}</td>
-                                    <td>{{ reminder['medication'] }}</td>
-                                    <td>{{ reminder['quantity'] }}</td>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Medication</th>
+                                    <th scope="col">Quantity</th>
+                                    <th scope="col">Action</th>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {% for reminder in reminders %}
+                                    <tr>
+                                        <td>{{ reminder['time'].strftime('%I:%M %p') }}</td>
+                                        <td>{{ reminder['medication'] }}</td>
+                                        <td>{{ reminder['quantity'] }}</td>
+                                        <td>
+                                            <button class="btn btn-danger" type="submit" value="{{ reminder['id'] }}" name="delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
                 {% else %}
                      <h6 class="text-center pb-2">
                          You do not have any Medication Reminder Yet.

@@ -78,6 +78,7 @@ Frameworks / Libraries / APIs / Languages
 * [Bootstrap 4.2.1](https://getbootstrap.com/)
 * [FontAwesome Pro 5.5.0](https://fontawesome.com/)
 * [jQuery 3.3.1](https://code.jquery.com/)
+* [typeahead.js 0.11.1 (typeahead.jquery.js)](https://github.com/twitter/typeahead.js)
 * [AccuWeather](https://developer.accuweather.com)
 * [Google Places](https://cloud.google.com/maps-platform/places/)
 * [MapBox](https://www.mapbox.com/)

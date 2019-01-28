@@ -10,12 +10,15 @@
                     {{ 'Hide New' if errors else 'New' }} Medical Appointment
                 </button>
                 <form id="AppointmentForm" class="text-left collapse{{ ' show' if errors }}" method="post" novalidate>
-                    <div class="form-label-group text-left">
+{#                    <div class="form-label-group text-left">#}
+{#                        <input id="location" class="form-control{{ ' is-invalid' if errors['location'] }}" type="text" placeholder="Hospital / Clinic" name="location"{% if location %} value="{{ location }}"{% endif %} />#}
+{#                        <label for="location">Hospital / Clinic</label>#}
+{#                        {% if errors['location'] %}#}
+{#                            <div class="feedback invalid-tooltip fadeIn">{{ errors['location'] }}</div>#}
+{#                        {% endif %}#}
+{#                    </div>#}
+                    <div class="form-group">
                         <input id="location" class="form-control{{ ' is-invalid' if errors['location'] }}" type="text" placeholder="Hospital / Clinic" name="location"{% if location %} value="{{ location }}"{% endif %} />
-                        <label for="location">Hospital / Clinic</label>
-                        {% if errors['location'] %}
-                            <div class="feedback invalid-tooltip fadeIn">{{ errors['location'] }}</div>
-                        {% endif %}
                     </div>
 
                     <div class="form-label-group text-left">
@@ -38,24 +41,32 @@
                 </form>
 
                 {% if appointments %}
-                    <table class="table table-striped mb-0">
-                        <thead>
-                            <tr>
-                                <th scope="col">Date</th>
-                                <th scope="col">Time</th>
-                                <th scope="col">Hospital / Clinic</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for appointment in appointments %}
+                    <form method="post" novalidate>
+                        <table class="table table-striped mb-0">
+                            <thead>
                                 <tr>
-                                    <td>{{ appointment['date_time'].strftime('%d/%m/%Y') }}</td>
-                                    <td>{{ appointment['date_time'].strftime('%I:%M %p') }}</td>
-                                    <td>{{ appointment['location'] }}</td>
+                                    <th scope="col">Date</th>
+                                    <th scope="col">Time</th>
+                                    <th scope="col">Hospital / Clinic</th>
+                                    <th scope="col">Action</th>
                                 </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {% for appointment in appointments %}
+                                    <tr>
+                                        <td>{{ appointment['date_time'].strftime('%d/%m/%Y') }}</td>
+                                        <td>{{ appointment['date_time'].strftime('%I:%M %p') }}</td>
+                                        <td>{{ appointment['location'] }}</td>
+                                        <td>
+                                            <button class="btn btn-danger" type="submit" value="{{ appointment['id'] }}" name="delete">
+                                                <i class="fas fa-trash-alt"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </form>
                 {% else %}
                     <h6 class="text-center pb-2">
                         You do not have any Medical Appointment Yet.
@@ -64,4 +75,16 @@
             </div>
         </div>
     </section>
+{% endblock %}
+
+{% block beforeScript %}
+    <script src="{{ url_for('static', filename='js/typeahead.jquery.js') }}"></script>
+
+    <script>
+        let autocomplete = [];
+        for (let i = 0; i < {{ autocomplete | tojson }}.length; i++) {
+            autocomplete[i] = {{ autocomplete | tojson }}[i][0];
+        }
+
+    </script>
 {% endblock %}
