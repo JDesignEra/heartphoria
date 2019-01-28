@@ -43,13 +43,13 @@ def index():
                 errors['location'] = 'Location is required.'
 
             if not errors:
-                appointment = Appointment(user_id=g.user['id'], date_time=date_time, location=location)
+                appointment = Appointment(user_id=g.user['id'], date_time=date_time, location=location) #create appointment object with user input values
                 db.session.add(appointment)
                 db.session.commit()
 
                 return redirect(url_for('.index'))
 
-    appointments = Appointment.query.filter_by(user_id=g.user['id']).order_by(Appointment.date_time.desc()).all()
+    appointments = Appointment.query.filter_by(user_id=g.user['id']).order_by(Appointment.date_time.desc()).all() #retrieve all appointment data based on user id
     hospitals = Hospital.query.with_entities(Hospital.name).all()
 
     return render_template('appointment/index.html', date=date, time=time, location=location, errors=errors, appointments=appointments, autocomplete=hospitals)
