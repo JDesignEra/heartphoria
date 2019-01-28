@@ -26,7 +26,7 @@ def index():
         }
 
         try:
-            r = requests.get('http://dataservice.accuweather.com/currentconditions/v1/300597', params=params, timeout=1)
+            r = requests.get('http://dataservice.accuweather.com/currentconditions/v1/300597', params=params, timeout=2)
             results = (r.json())[0]
 
             data = {

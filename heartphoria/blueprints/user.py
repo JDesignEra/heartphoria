@@ -24,8 +24,8 @@ def index(user_id):
 
     try:
         # Check if users profile picture exists when hosted with ngrok and on local.
-        if requests.get(ngrok_url + '/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
-                requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
+        if requests.get(ngrok_url + '/static/images/dp/%s.png' % g.user['id'], timeout=1).status_code == 200 or \
+                requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=1).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
         print('User has not uploaded any profile picture...')
@@ -67,8 +67,8 @@ def edit():
 
     try:
         # Check if users profile picture exists when hosted with ngrok and on local.
-        if requests.get(ngrok_url + '/static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200 or \
-                requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=0.5).status_code == 200:
+        if requests.get(ngrok_url + '/static/images/dp/%s.png' % g.user['id'], timeout=1).status_code == 200 or \
+                requests.get(request.url_root + 'static/images/dp/%s.png' % g.user['id'], timeout=1).status_code == 200:
             image = url_for('static', filename='images/dp/%s.png' % g.user['id']) + '?v=%s' % datetime.now().time()
     except requests.exceptions.ConnectionError:
         print('User has not uploaded any profile picture...')

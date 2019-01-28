@@ -115,7 +115,7 @@ def forgot():
 
                 # Determines if ngrok is up.
                 try:
-                    if requests.get(ngrok_url, timeout=0.5).status_code == 200:
+                    if requests.get(ngrok_url, timeout=1).status_code == 200:
                         print('ngrok is up, using %s URL instead...' % ngrok_url)
 
                         link = ngrok_url + '/change/' + str(user.id) + '/' + fcode
@@ -154,7 +154,7 @@ def resend_forgot(user_id):
 
         # Determines if ngrok is up.
         try:
-            if requests.get(ngrok_url, timeout=0.5).status_code == 200:
+            if requests.get(ngrok_url, timeout=1).status_code == 200:
                 print('ngrok is up, using %s URL instead...' % ngrok_url)
 
                 link = ngrok_url + str(user.id) + '/' + fcode

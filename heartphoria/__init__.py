@@ -44,7 +44,7 @@ def redirect(location, code=302, Response=None):
     import flask
 
     try:
-        if requests.get(ngrok_url, timeout=0.5).status_code == 200:
+        if requests.get(ngrok_url, timeout=1).status_code == 200:
             return flask.redirect(ngrok_url + location, code, Response)
         else:
             return flask.redirect(location, code, Response)
